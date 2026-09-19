@@ -19,68 +19,68 @@ siteNav.querySelectorAll('a').forEach((link) => {
 const profiles = [
   {
     keys: ['otp', 'ngân hàng', 'link', 'tài khoản', 'đăng nhập'],
-    title: 'Nguy cơ cao: giả danh ngân hàng',
-    summary: 'Tình huống có dấu hiệu giả mạo ngân hàng để lấy thông tin đăng nhập hoặc mã OTP.',
+    title: 'Cần cảnh giác: có thể là giả danh ngân hàng',
+    summary: 'Tình huống này có những dấu hiệu thường thấy ở việc mạo danh ngân hàng để lấy thông tin đăng nhập hoặc mã OTP.',
     signals: [
-      'Yêu cầu bấm vào đường link không rõ nguồn gốc.',
-      'Đòi OTP/mật khẩu — thông tin ngân hàng không bao giờ được yêu cầu qua cuộc gọi hay tin nhắn.',
-      'Dùng lý do “tài khoản lỗi” để tạo áp lực.'
+      'Bạn được hướng dẫn bấm vào một đường link chưa rõ nguồn gốc.',
+      'Người lạ hỏi OTP hoặc mật khẩu — ngân hàng không yêu cầu những thông tin này qua cuộc gọi hay tin nhắn.',
+      'Lý do “tài khoản gặp lỗi” được dùng để khiến bạn vội vàng.'
     ],
     actions: [
-      'Không bấm link, không cung cấp OTP hoặc mật khẩu.',
-      'Tự tìm số tổng đài chính thức trên website/app ngân hàng và gọi xác minh.',
-      'Nếu đã nhập thông tin, gọi ngân hàng ngay để khoá tài khoản.'
+      'Bạn hãy tạm dừng, không bấm link và không chia sẻ OTP hoặc mật khẩu.',
+      'Tự tìm số tổng đài trên website hoặc ứng dụng chính thức của ngân hàng để xác minh.',
+      'Nếu đã lỡ nhập thông tin, hãy liên hệ ngân hàng ngay để được hỗ trợ bảo vệ tài khoản.'
     ],
     risk: 92,
     badge: 'MỨC ĐỘ: CAO'
   },
   {
     keys: ['công an', 'cơ quan', 'vụ án', 'xác minh', 'chuyển tiền'],
-    title: 'Nguy cơ cao: giả danh cơ quan',
-    summary: 'Đây là thủ đoạn gây sợ hãi để nạn nhân chuyển tiền “xác minh”.',
+    title: 'Cần cảnh giác: có thể là giả danh cơ quan',
+    summary: 'Cách liên hệ này có dấu hiệu tạo sợ hãi để thúc giục bạn chuyển tiền với lý do “xác minh”.',
     signals: [
-      'Tạo áp lực bằng câu chuyện liên quan đến pháp luật.',
-      'Yêu cầu chuyển tiền hoặc cài phần mềm lạ.',
-      'Làm việc qua điện thoại thay vì giấy mời/kênh chính thức.'
+      'Câu chuyện liên quan đến pháp luật được dùng để tạo áp lực.',
+      'Bạn được yêu cầu chuyển tiền hoặc cài một phần mềm không rõ nguồn gốc.',
+      'Người gọi làm việc qua điện thoại thay vì hướng dẫn bạn đến kênh chính thức.'
     ],
     actions: [
-      'Dừng cuộc gọi và không chuyển tiền.',
-      'Không cài bất kỳ ứng dụng nào từ người gọi.',
-      'Tự liên hệ cơ quan công an địa phương qua số chính thức nếu cần xác minh.'
+      'Bạn hãy bình tĩnh kết thúc cuộc gọi và chưa chuyển tiền.',
+      'Không cài ứng dụng theo hướng dẫn của người gọi.',
+      'Nếu cần, hãy tự liên hệ Công an địa phương qua số được công bố chính thức.'
     ],
     risk: 95,
     badge: 'MỨC ĐỘ: RẤT CAO'
   },
   {
     keys: ['việc', 'nhiệm vụ', 'hoa hồng', 'nạp tiền', 'cộng tác'],
-    title: 'Nguy cơ cao: lừa đảo việc làm',
-    summary: '“Làm nhiệm vụ” và nạp tiền để nhận hoa hồng là dấu hiệu rất thường gặp của lừa đảo.',
+    title: 'Cần cảnh giác: lời mời việc làm có dấu hiệu bất thường',
+    summary: 'Việc yêu cầu “làm nhiệm vụ” và nạp tiền trước để nhận hoa hồng là dấu hiệu thường gặp của lừa đảo.',
     signals: [
-      'Hứa thu nhập cao, việc đơn giản.',
-      'Bắt nạp tiền/đặt cọc để bắt đầu hoặc rút tiền.',
-      'Kẻ lừa đảo dùng thành tích giả để tạo lòng tin.'
+      'Công việc được giới thiệu là đơn giản nhưng thu nhập lại quá hấp dẫn.',
+      'Bạn bị yêu cầu nạp tiền hoặc đặt cọc để bắt đầu hay rút tiền.',
+      'Những kết quả hoặc lời chứng thực được đưa ra có thể chỉ nhằm tạo lòng tin.'
     ],
     actions: [
-      'Không nạp tiền, kể cả khi họ cho rút một khoản nhỏ ban đầu.',
-      'Không cung cấp CCCD, tài khoản ngân hàng hoặc ảnh khuôn mặt.',
-      'Lưu lại nội dung để cảnh báo người thân.'
+      'Bạn đừng nạp tiền, kể cả khi ban đầu họ cho rút một khoản nhỏ.',
+      'Không gửi CCCD, thông tin ngân hàng hoặc ảnh khuôn mặt cho người chưa xác minh.',
+      'Lưu lại nội dung trao đổi và chia sẻ cảnh báo với người thân nếu cần.'
     ],
     risk: 88,
     badge: 'MỨC ĐỘ: CAO'
   },
   {
     keys: ['người thân', 'mẹ', 'con', 'gấp', 'giọng'],
-    title: 'Nguy cơ cao: giả người thân',
-    summary: 'Giọng nói, hình ảnh và tài khoản mạng xã hội đều có thể bị giả để nhờ chuyển tiền.',
+    title: 'Cần cảnh giác: có thể là mạo danh người thân',
+    summary: 'Giọng nói, hình ảnh và tài khoản mạng xã hội đều có thể bị làm giả để tạo lòng tin và nhờ chuyển tiền.',
     signals: [
-      'Yêu cầu chuyển tiền khẩn cấp.',
-      'Liên hệ bằng số/tài khoản lạ.',
-      'Không thể xác minh bằng một cuộc gọi video độc lập.'
+      'Bạn được nhờ chuyển tiền trong thời gian rất gấp.',
+      'Người liên hệ dùng số điện thoại hoặc tài khoản khác thường.',
+      'Danh tính chưa được xác minh bằng một cuộc gọi độc lập.'
     ],
     actions: [
-      'Gọi lại số cũ hoặc gọi video trực tiếp cho người thân.',
-      'Dùng câu hỏi bí mật chỉ gia đình biết.',
-      'Không chuyển tiền trước khi xác minh qua kênh khác.'
+      'Gọi lại số điện thoại cũ hoặc gọi video trực tiếp cho người thân.',
+      'Dùng một câu hỏi riêng mà chỉ gia đình bạn biết.',
+      'Chỉ thực hiện giao dịch sau khi đã xác minh qua một kênh khác.'
     ],
     risk: 90,
     badge: 'MỨC ĐỘ: CAO'
@@ -91,17 +91,17 @@ function evaluate(text) {
   const lower = text.toLowerCase();
 
   return profiles.find((profile) => profile.keys.some((key) => lower.includes(key))) || {
-    title: 'Cần thận trọng và kiểm tra thêm',
-    summary: 'Chưa đủ dấu hiệu để kết luận, nhưng tình huống lạ cần được xác minh độc lập trước khi bạn làm bất kỳ việc gì.',
+    title: 'Mình khuyên bạn nên kiểm tra thêm',
+    summary: 'Chưa đủ thông tin để kết luận, nhưng đây vẫn là một tình huống nên được xác minh độc lập trước khi bạn làm bất kỳ điều gì.',
     signals: [
-      'Người lạ đang chủ động liên hệ.',
-      'Có yêu cầu khiến bạn cần quyết định ngay.',
-      'Bạn chưa thể kiểm tra danh tính qua kênh chính thức.'
+      'Một người hoặc đơn vị chưa được xác minh đang chủ động liên hệ.',
+      'Bạn được đề nghị đưa ra quyết định ngay lập tức.',
+      'Danh tính và thông tin chưa được đối chiếu qua kênh chính thức.'
     ],
     actions: [
-      'Tạm dừng: không bấm link, cài app hoặc chuyển tiền.',
-      'Tự gọi số chính thức của đơn vị/người liên quan để xác minh.',
-      'Hỏi một người thân tin cậy trước khi ra quyết định.'
+      'Bạn hãy tạm dừng, chưa bấm link, cài ứng dụng hay chuyển tiền.',
+      'Tự tìm và gọi số chính thức của đơn vị hoặc người liên quan để xác minh.',
+      'Chia sẻ tình huống với một người thân đáng tin trước khi quyết định.'
     ],
     risk: 64,
     badge: 'MỨC ĐỘ: VỪA PHẢI'
@@ -124,7 +124,7 @@ function diagnose() {
   if (!text) {
     story.focus();
     story.setAttribute('aria-invalid', 'true');
-    notice('Hãy kể lại tình huống trước khi kiểm tra.');
+    notice('Bạn hãy kể lại tình huống, mình sẽ cùng bạn xem xét.');
     return;
   }
   story.removeAttribute('aria-invalid');
@@ -170,15 +170,15 @@ const speak = () => {
 };
 
 const copy = async () => {
-  const text = `CẢNH BÁO TỪ PHÒNG KHÁM SỐ\n${$('#riskTitle').textContent}\n${$('#summary').textContent}\nViệc cần làm: ${[...$('#actions').querySelectorAll('li')].map((item) => item.textContent).join('; ')}`;
+  const text = `GỢI Ý AN TOÀN TỪ CẢNH BÁO SỐ\n${$('#riskTitle').textContent}\n${$('#summary').textContent}\nBạn có thể làm: ${[...$('#actions').querySelectorAll('li')].map((item) => item.textContent).join('; ')}`;
 
   try {
     if (!navigator.clipboard?.writeText) throw new Error('Clipboard API unavailable');
     await navigator.clipboard.writeText(text);
-    notice('Đã sao chép hướng dẫn — bạn có thể gửi cho người thân.');
+    notice('Mình đã sao chép gợi ý. Bạn có thể gửi cho người thân để cùng xem xét.');
   } catch (error) {
     console.warn('Không thể sao chép hướng dẫn:', error);
-    notice('Hãy chọn và sao chép nội dung kết quả để gửi người thân.');
+    notice('Bạn có thể chọn và sao chép phần kết quả để gửi cho người thân.');
   }
 };
 
@@ -199,7 +199,7 @@ $('#createCode').addEventListener('click', () => {
   const code = phrases[Math.floor(Math.random() * phrases.length)];
   localStorage.setItem('family-code', code);
   $('#familyCode').textContent = 'Câu xác minh: ' + code;
-  notice('Đã tạo câu xác minh. Hãy ghi nhớ và chỉ chia sẻ với gia đình.');
+  notice('Câu xác minh đã được tạo. Hãy ghi nhớ và chỉ chia sẻ với những người trong gia đình.');
 });
 
 if (localStorage.getItem('safety-pledge')) $('#pledgeState').textContent = '✓ Đã hoàn thành';
@@ -207,7 +207,7 @@ if (localStorage.getItem('safety-pledge')) $('#pledgeState').textContent = '✓ 
 $('#pledgeButton').addEventListener('click', () => {
   localStorage.setItem('safety-pledge', 'true');
   $('#pledgeState').textContent = '✓ Đã hoàn thành';
-  notice('Tốt lắm! Hãy nhắc lại ba quy tắc này cho người thân.');
+  notice('Rất tốt. Bạn có thể nhắc lại ba quy tắc này để cả gia đình cùng ghi nhớ.');
 });
 
 $('#panicButton').addEventListener('click', () => $('#panic').showModal());
