@@ -14,7 +14,7 @@
   --radius: 22px;
   --radius-sm: 12px;
   --transition: 0.25s ease;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Be Vietnam Pro", Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -28,6 +28,7 @@ body {
     radial-gradient(circle at top right, rgba(26, 115, 216, 0.18), transparent 20%),
     linear-gradient(180deg, #f4fbff 0%, #edf6ff 100%);
   line-height: 1.55;
+  font-size: 16px;
   position: relative;
 }
 body::before {
@@ -262,6 +263,19 @@ nav a:focus-visible::after {
   padding: 80px max(10vw, 30px);
 }
 
+.program > *,
+.clinic > *,
+.signs > *,
+.scenarios > *,
+.news > *,
+.tools > *,
+.official > *,
+.faq > * {
+  width: min(1180px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .program {
   background: linear-gradient(180deg, #f7fbff 0%, #eef8ff 100%);
 }
@@ -274,11 +288,22 @@ nav a:focus-visible::after {
 }
 
 .program-item {
+  display: block;
   padding: 22px 20px;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: #fff;
   box-shadow: var(--shadow);
+  color: inherit;
+  text-decoration: none;
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.program-item:hover,
+.program-item:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(26, 115, 216, 0.5);
+  box-shadow: 0 18px 32px rgba(20, 118, 212, 0.13);
 }
 
 .program-item h3 {
@@ -604,6 +629,20 @@ nav a:focus-visible::after {
   font-size: 13px;
 }
 
+.card-link {
+  display: inline-block;
+  margin-top: 15px;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.card-link:hover,
+.card-link:focus-visible {
+  text-decoration: underline;
+}
+
 .faq {
   background: #fff;
 }
@@ -612,6 +651,15 @@ nav a:focus-visible::after {
   display: grid;
   gap: 16px;
   margin-top: 28px;
+}
+
+.faq-list,
+.news-grid,
+.tool-grid,
+.official-grid,
+.scenario-grid,
+.sign-grid {
+  align-items: stretch;
 }
 
 .faq-list details {
@@ -693,7 +741,7 @@ nav a:focus-visible::after {
 .news-card h3 {
   margin: 12px 0 10px;
   font-size: 17px;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .news-card p {
@@ -818,6 +866,10 @@ nav a:focus-visible::after {
   padding: 70px max(10vw, 30px);
   background: var(--ink);
   color: #fff;
+}
+
+.help > * {
+  width: min(580px, 100%);
 }
 
 .help .eyebrow { color: #8cc9ff; }
