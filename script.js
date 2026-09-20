@@ -144,6 +144,56 @@ function diagnose() {
 
 $('#diagnose').addEventListener('click', diagnose);
 
+const linkForm = $('#linkForm');
+const linkInput = $('#linkInput');
+const linkResult = $('#linkResult');
+
+linkForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const raw = linkInput.value.trim();
+  if (!raw) {
+    linkInput.focus();
+    notice('Bạn hãy dán một đường link để kiểm tra.');
+    return;
+  }
+
+  const normalized = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+  let url;
+  try {
+    url = new URL(normalized);
+  } catch {
+    linkResult.hidden = false;
+    linkResult.className = 'link-result link-danger';
+    linkResult.innerHTML = '<strong>Link chưa đúng định dạng.</strong><p>Hãy nhập tên miền, ví dụ: example.com hoặc https://example.com.</p>';
+    return;
+  }
+
+  const hostname = url.hostname.toLowerCase();
+  if (!hostname || !hostname.includes('.') || hostname.startsWith('.') || hostname.endsWith('.')) {
+    linkResult.hidden = false;
+    linkResult.className = 'link-result link-danger';
+    linkResult.innerHTML = '<strong>Chưa nhận diện được tên miền.</strong><p>Hãy kiểm tra lại đường link trước khi tiếp tục.</p>';
+    return;
+  }
+
+  const fullLink = `${url.hostname}${url.pathname}${url.search}`;
+  const signals = [];
+  if (url.protocol !== 'https:') signals.push('Không dùng kết nối HTTPS.');
+  if (hostname.includes('xn--')) signals.push('Tên miền có mã hoá ký tự, có thể dùng để giả dạng tên quen thuộc.');
+  if (hostname.split('.').length > 3) signals.push('Tên miền có nhiều lớp, cần kiểm tra kỹ nguồn gửi.');
+  if (/^(\d{1,3}\.){3}\d{1,3}$/.test(hostname)) signals.push('Link dùng địa chỉ IP thay vì tên miền rõ ràng.');
+  if (/bit\.ly|tinyurl\.com|t\.co|goo\.gl|shorturl\.at/i.test(hostname)) signals.push('Đây là link rút gọn nên chưa nhìn được đích đến thật.');
+  if (/otp|password|login|verify|secure|account|bank|nap-tien|thanh-toan/i.test(fullLink)) signals.push('Đường dẫn có từ khoá liên quan đăng nhập, xác minh hoặc thanh toán.');
+
+  const safe = signals.length === 0;
+  linkResult.hidden = false;
+  linkResult.className = `link-result ${safe ? 'link-safe' : 'link-danger'}`;
+  linkResult.innerHTML = safe
+    ? `<strong>Chưa thấy dấu hiệu kỹ thuật rõ ràng.</strong><p>Điều này không chứng minh link an toàn. Hãy đối chiếu tên miền với website chính thức trước khi đăng nhập hoặc thanh toán.</p>`
+    : `<strong>Nên dừng lại và kiểm tra thêm.</strong><ul>${signals.map((signal) => `<li>${signal}</li>`).join('')}</ul><p>Không nhập OTP, mật khẩu hoặc thông tin thẻ trên trang này.</p>`;
+  linkResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
 const storyButtons = document.querySelectorAll('[data-story]');
 storyButtons.forEach((button) => {
   button.addEventListener('click', () => {
