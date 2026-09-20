@@ -450,6 +450,7 @@ nav a:focus-visible::after {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  min-width: 0;
 }
 
 .voice-input {
@@ -458,6 +459,8 @@ nav a:focus-visible::after {
   gap: 6px;
   justify-content: center;
   width: 40px;
+  min-width: 40px;
+  flex: 0 0 40px;
   height: 40px;
   padding: 0;
   border: 1px solid rgba(26, 115, 216, 0.3);
@@ -692,6 +695,13 @@ nav a:focus-visible::after {
 .result-grid h3 {
   margin: 0;
   font-size: 14px;
+}
+
+.result-note {
+  margin: 8px 0 0;
+  color: #71879a;
+  font-size: 11px;
+  line-height: 1.55;
 }
 
 .result-grid ul, .result-grid ol {
