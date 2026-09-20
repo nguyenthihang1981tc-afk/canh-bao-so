@@ -147,7 +147,9 @@ $('#diagnose').addEventListener('click', diagnose);
 const voiceInputButton = $('#voiceInputButton');
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-if (SpeechRecognition) {
+if (!voiceInputButton) {
+  console.warn('Không tìm thấy nút nhập bằng giọng nói.');
+} else if (SpeechRecognition) {
   const recognition = new SpeechRecognition();
   recognition.lang = 'vi-VN';
   recognition.continuous = false;
