@@ -586,6 +586,70 @@ nav a:focus-visible::after {
   font-size: 12px;
 }
 
+.ai-signs {
+  padding: 80px max(10vw, 30px);
+  background: linear-gradient(180deg, #f4f9ff 0%, #eaf5ff 100%);
+}
+
+.ai-sign-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.ai-sign-grid article {
+  min-height: 190px;
+  padding: 22px;
+  border: 1px solid rgba(116, 160, 202, 0.24);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 14px 30px rgba(20, 58, 105, 0.08);
+}
+
+.ai-sign-number {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #e5f2ff;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ai-sign-grid h3 {
+  margin: 14px 0 8px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.ai-sign-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.ai-check-note {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  max-width: 900px;
+  margin: 24px auto 0;
+  padding: 16px 18px;
+  border-left: 4px solid var(--blue);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.75);
+  color: #50677e;
+  font-size: 13px;
+}
+
+.ai-check-note strong {
+  flex: 0 0 auto;
+  color: var(--blue-strong);
+}
+
 .scenarios {
   background: linear-gradient(180deg, #ffffff 0%, #f4f9ff 100%);
 }
@@ -1003,6 +1067,7 @@ dialog button {
   .program,
   .clinic,
   .signs,
+  .ai-signs,
   .scenarios,
   .tools,
   .official,
@@ -1023,8 +1088,10 @@ dialog button {
   .bottom-result { display: block; }
 
   .badge { display: inline-block; margin-top: 12px; }
-  .result-grid, .help, .tool-grid, .news-grid, .official-grid, .sign-grid, .scenario-grid { grid-template-columns: 1fr; }
+  .result-grid, .help, .tool-grid, .news-grid, .official-grid, .sign-grid, .scenario-grid, .ai-sign-grid { grid-template-columns: 1fr; }
   .help { gap: 30px; }
+  .ai-check-note { display: block; }
+  .ai-check-note strong { display: block; margin-bottom: 5px; }
   .help li { grid-template-columns: 1fr; gap: 3px; }
   .quick button { display: block; width: 100%; text-align: left; }
   .steps { font-size: 9px; }
