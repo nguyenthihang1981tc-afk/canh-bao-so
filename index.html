@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260921-voice-input">
+  <link rel="stylesheet" href="style.css?v=20260921-vietnamese-voice">
 </head>
 <body>
   <a class="skip-link" href="#top">Bỏ qua đến nội dung chính</a>
@@ -142,8 +142,10 @@
 
         <div class="story-label-row">
           <label for="story">Hãy kể lại câu chuyện của bạn</label>
-          <button id="voiceInputButton" class="voice-input" type="button" aria-pressed="false">
-            <span aria-hidden="true">●</span> Nói để nhập
+          <button id="voiceInputButton" class="voice-input" type="button" aria-label="Nói để nhập bằng giọng nói" title="Nói để nhập bằng giọng nói" aria-pressed="false">
+            <span class="mic-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation"><path d="M12 14.5a3.5 3.5 0 0 0 3.5-3.5V6a3.5 3.5 0 1 0-7 0v5a3.5 3.5 0 0 0 3.5 3.5Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8.5 21h7"/></svg>
+            </span>
           </button>
         </div>
         <textarea id="story" aria-describedby="storyHelp" maxlength="1200" placeholder="Ví dụ: Có người gọi tự xưng là nhân viên ngân hàng, nói tài khoản của tôi bị lỗi và yêu cầu tôi bấm vào link để nhập mã OTP..."></textarea>

@@ -146,6 +146,7 @@ $('#diagnose').addEventListener('click', diagnose);
 
 const voiceInputButton = $('#voiceInputButton');
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const micIcon = '<span class="mic-icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><path d="M12 14.5a3.5 3.5 0 0 0 3.5-3.5V6a3.5 3.5 0 1 0-7 0v5a3.5 3.5 0 0 0 3.5 3.5Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8.5 21h7"/></svg></span>';
 
 if (!voiceInputButton) {
   console.warn('Không tìm thấy nút nhập bằng giọng nói.');
@@ -160,7 +161,9 @@ if (!voiceInputButton) {
     confirmedText = story.value.trim();
     voiceInputButton.classList.add('is-listening');
     voiceInputButton.setAttribute('aria-pressed', 'true');
-    voiceInputButton.innerHTML = '<span aria-hidden="true">●</span> Đang nghe…';
+    voiceInputButton.innerHTML = micIcon;
+    voiceInputButton.setAttribute('aria-label', 'Đang nghe, bấm để dừng');
+    voiceInputButton.setAttribute('title', 'Đang nghe, bấm để dừng');
   };
 
   recognition.onresult = (event) => {
@@ -197,7 +200,9 @@ if (!voiceInputButton) {
     story.value = confirmedText.trim();
     voiceInputButton.classList.remove('is-listening');
     voiceInputButton.setAttribute('aria-pressed', 'false');
-    voiceInputButton.innerHTML = '<span aria-hidden="true">●</span> Nói để nhập';
+    voiceInputButton.innerHTML = micIcon;
+    voiceInputButton.setAttribute('aria-label', 'Nói để nhập bằng giọng nói');
+    voiceInputButton.setAttribute('title', 'Nói để nhập bằng giọng nói');
   };
 
   voiceInputButton.addEventListener('click', () => {
@@ -307,6 +312,13 @@ $('#fontButton').addEventListener('click', (event) => {
 
 const toast = $('#toast');
 
+const getVietnameseVoice = () => {
+  const voices = window.speechSynthesis.getVoices();
+  return voices.find((voice) => voice.lang.toLowerCase() === 'vi-vn')
+    || voices.find((voice) => voice.lang.toLowerCase().startsWith('vi-'))
+    || voices.find((voice) => voice.lang.toLowerCase() === 'vi');
+};
+
 const speak = () => {
   const text = `${$('#riskTitle').textContent}. ${$('#summary').textContent}. ${[...$('#actions').querySelectorAll('li')].map((item) => item.textContent).join('. ')}`;
   if (!('speechSynthesis' in window)) {
@@ -314,10 +326,14 @@ const speak = () => {
     return;
   }
   window.speechSynthesis.cancel();
+  const vietnameseVoice = getVietnameseVoice();
+  if (!vietnameseVoice) {
+    notice('Thiết bị chưa có giọng đọc tiếng Việt. Hãy cài thêm giọng Vietnamese/vi-VN trong cài đặt đọc văn bản của máy.');
+    return;
+  }
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'vi-VN';
-  const voices = window.speechSynthesis.getVoices();
-  utterance.voice = voices.find((voice) => voice.lang.toLowerCase().startsWith('vi')) || null;
+  utterance.voice = vietnameseVoice;
   window.speechSynthesis.speak(utterance);
 };
 

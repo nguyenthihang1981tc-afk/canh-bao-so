@@ -456,19 +456,18 @@ nav a:focus-visible::after {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 7px 11px;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
   border: 1px solid rgba(26, 115, 216, 0.3);
   border-radius: 999px;
   background: #edf6ff;
   color: #1766b1;
-  font-size: 11px;
-  font-weight: 800;
+  font-size: 19px;
+  line-height: 1;
   cursor: pointer;
   transition: background var(--transition), border-color var(--transition), transform var(--transition);
-}
-
-.voice-input span {
-  font-size: 9px;
 }
 
 .voice-input:hover,
@@ -482,6 +481,31 @@ nav a:focus-visible::after {
   border-color: #d9535b;
   background: #fff0f1;
   color: #b23c43;
+}
+
+.voice-input.is-listening .mic-icon {
+  animation: mic-pulse 1s ease-in-out infinite;
+}
+
+.mic-icon {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+}
+
+.mic-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+@keyframes mic-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
 }
 
 .exam textarea {
