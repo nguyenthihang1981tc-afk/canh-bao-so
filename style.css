@@ -256,6 +256,7 @@ nav a:focus-visible::after {
 .program,
 .clinic,
 .now,
+.link-check,
 .signs,
 .news,
 .tools,
@@ -422,6 +423,73 @@ nav a:focus-visible::after {
 }
 
 .privacy { margin: 13px 0 0; color: #8497a8; font-size: 10px; }
+
+.link-check {
+  background: linear-gradient(180deg, #f4f9ff 0%, #edf7ff 100%);
+}
+
+.link-form {
+  max-width: 900px;
+  margin-top: 26px;
+}
+
+.link-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.link-input-row {
+  display: flex;
+  gap: 10px;
+}
+
+.link-input-row input {
+  min-width: 0;
+  flex: 1;
+  padding: 13px 15px;
+  border: 1px solid rgba(123, 162, 212, 0.45);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  outline: none;
+}
+
+.link-input-row input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(26, 115, 216, 0.1);
+}
+
+.link-input-row button {
+  border: 0;
+  border-radius: 12px;
+  padding: 0 20px;
+  background: var(--blue);
+  color: #fff;
+  font: 700 13px inherit;
+  cursor: pointer;
+}
+
+.link-input-row button:hover { background: var(--blue-strong); }
+
+.link-result {
+  max-width: 900px;
+  margin-top: 18px;
+  padding: 17px 19px;
+  border-left: 4px solid;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.link-result strong { font-size: 14px; }
+.link-result p { margin: 7px 0 0; color: var(--muted); }
+.link-result ul { margin: 9px 0 0; padding-left: 20px; color: #6e4b3b; }
+.link-result li { margin: 4px 0; }
+.link-safe { border-color: #3d9b66; background: #effaf3; }
+.link-safe strong { color: #287547; }
+.link-danger { border-color: #dc5a5e; background: #fff3f3; }
+.link-danger strong { color: #b23c43; }
 
 .result {
   max-width: min(1000px, 80vw);
@@ -1205,6 +1273,8 @@ dialog button {
   .steps { font-size: 9px; }
   .result-tools { display: grid; }
   .font { font-size: 10px; }
+  .link-input-row { display: grid; }
+  .link-input-row button { min-height: 44px; }
   .now-steps { grid-template-columns: 1fr; }
   .now-steps article { padding: 17px; }
   .quick-actions {

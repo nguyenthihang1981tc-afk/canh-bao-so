@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260920-now">
+  <link rel="stylesheet" href="style.css?v=20260921-link">
 </head>
 <body>
   <a class="skip-link" href="#top">Bỏ qua đến nội dung chính</a>
@@ -25,6 +25,7 @@
       <a href="#signs">Dấu hiệu</a>
       <a href="#news">Chiêu lừa</a>
       <a href="#kham">Kiểm tra</a>
+      <a href="#link-check">Kiểm tra link</a>
       <a href="#help">Hỗ trợ</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -154,6 +155,23 @@
         <button id="diagnose" class="diagnose" type="button">✦ Xem gợi ý an toàn</button>
         <p class="privacy">Nội dung được xử lý ngay trên trình duyệt trong bản minh hoạ này và không được gửi đi.</p>
       </div>
+    </section>
+
+    <section id="link-check" class="link-check" aria-labelledby="link-check-title">
+      <div class="heading">
+        <p class="eyebrow">CÔNG CỤ KIỂM TRA NHANH</p>
+        <h2 id="link-check-title">Link này có gì đáng ngờ?</h2>
+        <p>Dán đường link vào đây để kiểm tra một số dấu hiệu kỹ thuật ngay trên thiết bị. Kết quả chỉ mang tính tham khảo — không mở link nếu bạn vẫn còn nghi ngờ.</p>
+      </div>
+      <form id="linkForm" class="link-form">
+        <label for="linkInput">Đường link cần kiểm tra</label>
+        <div class="link-input-row">
+          <input id="linkInput" type="url" inputmode="url" autocomplete="off" placeholder="https://example.com" aria-describedby="linkHelp">
+          <button type="submit">Kiểm tra</button>
+        </div>
+        <p id="linkHelp" class="field-help">Không cần đăng nhập và đường link không được gửi đi.</p>
+      </form>
+      <div id="linkResult" class="link-result" hidden aria-live="polite"></div>
     </section>
 
     <section id="result" class="result" hidden>
