@@ -153,20 +153,34 @@ if (!voiceInputButton) {
   const recognition = new SpeechRecognition();
   recognition.lang = 'vi-VN';
   recognition.continuous = false;
-  recognition.interimResults = false;
+  recognition.interimResults = true;
+  let confirmedText = '';
 
   recognition.onstart = () => {
+    confirmedText = story.value.trim();
     voiceInputButton.classList.add('is-listening');
     voiceInputButton.setAttribute('aria-pressed', 'true');
     voiceInputButton.innerHTML = '<span aria-hidden="true">●</span> Đang nghe…';
   };
 
   recognition.onresult = (event) => {
-    const transcript = event.results[0][0].transcript.trim();
-    if (!transcript) return;
-    story.value = story.value.trim()
-      ? `${story.value.trim()} ${transcript}`
-      : transcript;
+    let interimText = '';
+    let finalText = '';
+
+    for (let index = event.resultIndex; index < event.results.length; index += 1) {
+      const transcript = event.results[index][0].transcript.trim();
+      if (event.results[index].isFinal) {
+        finalText += `${transcript} `;
+      } else {
+        interimText += `${transcript} `;
+      }
+    }
+
+    if (finalText.trim()) {
+      confirmedText = `${confirmedText} ${finalText.trim()}`.trim();
+    }
+
+    story.value = `${confirmedText}${interimText ? ` ${interimText.trim()}` : ''}`.trim();
     story.dispatchEvent(new Event('input', { bubbles: true }));
   };
 
@@ -180,6 +194,7 @@ if (!voiceInputButton) {
   };
 
   recognition.onend = () => {
+    story.value = confirmedText.trim();
     voiceInputButton.classList.remove('is-listening');
     voiceInputButton.setAttribute('aria-pressed', 'false');
     voiceInputButton.innerHTML = '<span aria-hidden="true">●</span> Nói để nhập';
