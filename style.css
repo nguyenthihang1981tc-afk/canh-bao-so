@@ -83,6 +83,16 @@ header {
   -webkit-backdrop-filter: blur(14px);
 }
 
+header::after {
+  content: "";
+  position: absolute;
+  right: 6vw;
+  bottom: -1px;
+  left: 6vw;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(26, 115, 216, 0.28), transparent);
+}
+
 .brand {
   color: var(--ink);
   text-decoration: none;
@@ -107,7 +117,7 @@ header {
 nav {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: clamp(12px, 1.8vw, 26px);
 }
 
 nav a {
@@ -152,7 +162,8 @@ nav a:focus-visible::after {
 .menu-button { display: none; }
 
 .hero {
-  padding: 82px max(9vw, 30px) 72px;
+  min-height: 500px;
+  padding: 92px max(9vw, 30px) 82px;
   display: grid;
   grid-template-columns: 1.35fr .65fr;
   gap: 75px;
@@ -161,7 +172,39 @@ nav a:focus-visible::after {
     radial-gradient(circle at left center, rgba(109, 212, 255, 0.35), transparent 28%),
     linear-gradient(120deg, #edf9ff 0%, #e5f5ff 28%, #eef3ff 100%);
   position: relative;
+  overflow: hidden;
 }
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -180px;
+  right: -90px;
+  width: 560px;
+  height: 560px;
+  border: 1px solid rgba(26, 115, 216, 0.14);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 34px rgba(26, 115, 216, 0.035),
+    0 0 0 68px rgba(26, 115, 216, 0.025);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  right: 39%;
+  bottom: 28px;
+  width: 120px;
+  height: 120px;
+  border-radius: 34px;
+  background: rgba(255, 255, 255, 0.28);
+  transform: rotate(18deg);
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.hero > * { position: relative; z-index: 1; }
 
 .eyebrow {
   margin: 0 0 10px;
@@ -221,6 +264,19 @@ nav a:focus-visible::after {
   box-shadow: 18px 18px 0 rgba(156, 204, 247, 0.88), 0 26px 52px rgba(17, 39, 63, 0.18);
   position: relative;
   border: 1px solid rgba(150, 188, 233, 0.35);
+  overflow: hidden;
+}
+
+.hero aside::after {
+  content: "";
+  position: absolute;
+  right: -44px;
+  bottom: -58px;
+  width: 150px;
+  height: 150px;
+  border: 22px solid rgba(109, 212, 255, 0.14);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .cross {
@@ -299,6 +355,19 @@ nav a:focus-visible::after {
   color: inherit;
   text-decoration: none;
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.program-item::after {
+  content: "→";
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  color: #9bbbd8;
+  font-size: 19px;
+  font-weight: 700;
+  transition: color var(--transition), transform var(--transition);
 }
 
 .program-item:hover,
@@ -306,6 +375,12 @@ nav a:focus-visible::after {
   transform: translateY(-3px);
   border-color: rgba(26, 115, 216, 0.5);
   box-shadow: 0 18px 32px rgba(20, 118, 212, 0.13);
+}
+
+.program-item:hover::after,
+.program-item:focus-visible::after {
+  color: var(--blue);
+  transform: translateX(3px);
 }
 
 .program-item h3 {
@@ -752,6 +827,13 @@ nav a:focus-visible::after {
   border: 1px solid var(--line);
   border-radius: 12px;
   background: #fbfdff;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.sign-grid article:hover {
+  transform: translateY(-4px);
+  border-color: rgba(26, 115, 216, 0.35);
+  box-shadow: 0 16px 28px rgba(20, 58, 105, 0.09);
 }
 
 .sign-grid b { color: #e9414f; font-size: 13px; }
@@ -781,6 +863,13 @@ nav a:focus-visible::after {
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.88);
   box-shadow: 0 14px 30px rgba(20, 58, 105, 0.08);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.ai-sign-grid article:hover {
+  transform: translateY(-4px);
+  border-color: rgba(26, 115, 216, 0.32);
+  box-shadow: 0 20px 34px rgba(20, 58, 105, 0.13);
 }
 
 .ai-sign-number {
