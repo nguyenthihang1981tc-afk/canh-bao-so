@@ -148,6 +148,28 @@ const linkForm = $('#linkForm');
 const linkInput = $('#linkInput');
 const linkResult = $('#linkResult');
 
+const recognizedDomains = {
+  'youtube.com': 'YouTube',
+  'youtu.be': 'YouTube',
+  'google.com': 'Google',
+  'facebook.com': 'Facebook',
+  'messenger.com': 'Messenger',
+  'zalo.me': 'Zalo'
+};
+
+function getRecognizedService(hostname) {
+  return Object.entries(recognizedDomains).find(([domain]) => (
+    hostname === domain.trim() || hostname.endsWith(`.${domain.trim()}`)
+  ))?.[1] || '';
+}
+
+function renderLinkResult(type, title, content) {
+  linkResult.hidden = false;
+  linkResult.className = `link-result ${type}`;
+  linkResult.innerHTML = `<strong>${title}</strong>${content}`;
+  linkResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
 linkForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const raw = linkInput.value.trim();
@@ -162,36 +184,43 @@ linkForm.addEventListener('submit', (event) => {
   try {
     url = new URL(normalized);
   } catch {
-    linkResult.hidden = false;
-    linkResult.className = 'link-result link-danger';
-    linkResult.innerHTML = '<strong>Link chưa đúng định dạng.</strong><p>Hãy nhập tên miền, ví dụ: example.com hoặc https://example.com.</p>';
+    renderLinkResult('link-danger', 'Link chưa đúng định dạng.', '<p>Hãy nhập tên miền, ví dụ: example.com hoặc https://example.com.</p>');
     return;
   }
 
   const hostname = url.hostname.toLowerCase();
   if (!hostname || !hostname.includes('.') || hostname.startsWith('.') || hostname.endsWith('.')) {
-    linkResult.hidden = false;
-    linkResult.className = 'link-result link-danger';
-    linkResult.innerHTML = '<strong>Chưa nhận diện được tên miền.</strong><p>Hãy kiểm tra lại đường link trước khi tiếp tục.</p>';
+    renderLinkResult('link-danger', 'Chưa nhận diện được tên miền.', '<p>Hãy kiểm tra lại đường link trước khi tiếp tục.</p>');
     return;
   }
 
-  const fullLink = `${url.hostname}${url.pathname}${url.search}`;
   const signals = [];
-  if (url.protocol !== 'https:') signals.push('Không dùng kết nối HTTPS.');
-  if (hostname.includes('xn--')) signals.push('Tên miền có mã hoá ký tự, có thể dùng để giả dạng tên quen thuộc.');
-  if (hostname.split('.').length > 3) signals.push('Tên miền có nhiều lớp, cần kiểm tra kỹ nguồn gửi.');
-  if (/^(\d{1,3}\.){3}\d{1,3}$/.test(hostname)) signals.push('Link dùng địa chỉ IP thay vì tên miền rõ ràng.');
-  if (/bit\.ly|tinyurl\.com|t\.co|goo\.gl|shorturl\.at/i.test(hostname)) signals.push('Đây là link rút gọn nên chưa nhìn được đích đến thật.');
-  if (/otp|password|login|verify|secure|account|bank|nap-tien|thanh-toan/i.test(fullLink)) signals.push('Đường dẫn có từ khoá liên quan đăng nhập, xác minh hoặc thanh toán.');
+  const service = getRecognizedService(hostname);
+  const isIpAddress = /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname);
+  const isShortened = /(^|\.)((bit\.ly)|(tinyurl\.com)|(t\.co)|(goo\.gl)|(shorturl\.at))$/i.test(hostname);
 
-  const safe = signals.length === 0;
-  linkResult.hidden = false;
-  linkResult.className = `link-result ${safe ? 'link-safe' : 'link-danger'}`;
-  linkResult.innerHTML = safe
-    ? `<strong>Chưa thấy dấu hiệu kỹ thuật rõ ràng.</strong><p>Điều này không chứng minh link an toàn. Hãy đối chiếu tên miền với website chính thức trước khi đăng nhập hoặc thanh toán.</p>`
-    : `<strong>Nên dừng lại và kiểm tra thêm.</strong><ul>${signals.map((signal) => `<li>${signal}</li>`).join('')}</ul><p>Không nhập OTP, mật khẩu hoặc thông tin thẻ trên trang này.</p>`;
-  linkResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  if (url.protocol !== 'https:') signals.push('Đường link không dùng HTTPS.');
+  if (url.username || url.password) signals.push('Link chứa thông tin đăng nhập ngay trước tên miền.');
+  if (hostname.includes('xn--')) signals.push('Tên miền dùng mã hoá ký tự, có thể gây nhầm với tên miền quen thuộc.');
+  if (hostname.split('.').length > 3 && !service) signals.push('Tên miền có nhiều lớp, cần kiểm tra kỹ phần tên miền chính.');
+  if (isIpAddress) signals.push('Link dùng địa chỉ IP thay vì tên miền của một tổ chức.');
+  if (isShortened) signals.push('Đây là link rút gọn nên chưa nhìn được đích đến thật.');
+
+  const technicalSummary = `<p class="link-meta">Tên miền: <b>${hostname}</b>${url.port ? ` · Cổng: ${url.port}` : ''}</p>`;
+  if (signals.length > 0) {
+    renderLinkResult('link-danger', 'Nên dừng lại và kiểm tra thêm.', `${technicalSummary}<ul>${signals.map((signal) => `<li>${signal}</li>`).join('')}</ul><p>Không nhập OTP, mật khẩu hoặc thông tin thẻ. Nếu được, hãy tự mở ứng dụng hoặc website chính thức thay vì dùng link trong tin nhắn.</p>`);
+    return;
+  }
+
+  if (service) {
+    const serviceNote = service === 'YouTube'
+      ? 'Đường link có dạng của YouTube; phần tham số dài sau dấu “?” thường dùng để mở video hoặc danh sách phát.'
+      : `Đường link có dạng tên miền của ${service}.`;
+    renderLinkResult('link-recognized', `Đã nhận diện tên miền ${service}.`, `${technicalSummary}<p>${serviceNote}</p><p>Tên miền đúng không có nghĩa là video, bài đăng, tài khoản hoặc lời mời bên trong chắc chắn an toàn. Vẫn không đăng nhập, chuyển tiền hay cung cấp mã xác minh theo yêu cầu bất ngờ.</p>`);
+    return;
+  }
+
+  renderLinkResult('link-safe', 'Chưa thấy dấu hiệu kỹ thuật rõ ràng.', `${technicalSummary}<p>Đây chỉ là kết quả kiểm tra hình thức, không phải xác nhận an toàn. Hãy đối chiếu tên miền với website chính thức trước khi đăng nhập hoặc thanh toán.</p>`);
 });
 
 const storyButtons = document.querySelectorAll('[data-story]');

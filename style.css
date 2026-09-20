@@ -563,8 +563,12 @@ nav a:focus-visible::after {
 .link-result li { margin: 4px 0; }
 .link-safe { border-color: #3d9b66; background: #effaf3; }
 .link-safe strong { color: #287547; }
+.link-recognized { border-color: #287ed6; background: #edf6ff; }
+.link-recognized strong { color: #1766b1; }
 .link-danger { border-color: #dc5a5e; background: #fff3f3; }
 .link-danger strong { color: #b23c43; }
+.link-meta { overflow-wrap: anywhere; font-size: 12px; }
+.link-meta b { color: var(--ink); }
 
 .result {
   max-width: min(1000px, 80vw);
