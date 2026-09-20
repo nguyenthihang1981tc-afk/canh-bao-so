@@ -162,11 +162,15 @@ const toast = $('#toast');
 const speak = () => {
   const text = `${$('#riskTitle').textContent}. ${$('#summary').textContent}. ${[...$('#actions').querySelectorAll('li')].map((item) => item.textContent).join('. ')}`;
   if (!('speechSynthesis' in window)) {
-    notice('Trình duyệt này chưa hỗ trợ đọc kết quả.');
+    notice('Trình duyệt chưa hỗ trợ đọc tiếng Việt.');
     return;
   }
   window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'vi-VN';
+  const voices = window.speechSynthesis.getVoices();
+  utterance.voice = voices.find((voice) => voice.lang.toLowerCase().startsWith('vi')) || null;
+  window.speechSynthesis.speak(utterance);
 };
 
 const copy = async () => {
