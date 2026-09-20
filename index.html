@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cảnh Báo Số</title>
+  <title>Cảnh Báo Số | Bình tĩnh kiểm tra, xử lý an toàn</title>
   <meta name="description" content="Cảnh Báo Số giúp người dùng kiểm tra tình huống lừa đảo, nhận diện AI giả mạo và nhận hướng dẫn an toàn số.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260920-ai">
+  <link rel="stylesheet" href="style.css?v=20260920-now">
 </head>
 <body>
   <a class="skip-link" href="#top">Bỏ qua đến nội dung chính</a>
@@ -20,6 +20,7 @@
     </button>
     <nav id="siteNav">
       <a href="#top">Trang chủ</a>
+      <a href="#now">Xử lý ngay</a>
       <a href="#ai">AI là gì</a>
       <a href="#signs">Dấu hiệu</a>
       <a href="#news">Chiêu lừa</a>
@@ -46,6 +47,32 @@
         <small>Chậm lại một phút có thể giúp bạn bảo vệ tiền bạc, tài khoản và những thông tin riêng tư.</small>
       </aside>
     </section>
+
+      <section id="now" class="now" aria-labelledby="now-title">
+        <div class="now-intro">
+          <p class="eyebrow">NẾU BẠN ĐANG LO LẮNG</p>
+          <h2 id="now-title">60 giây đầu tiên, hãy làm đúng ba việc</h2>
+          <p>Đừng để sự gấp gáp thay bạn quyết định. Bạn có thể mở từng bước và làm chậm lại ngay bây giờ.</p>
+        </div>
+        <div class="now-steps">
+          <article>
+            <b>01</b>
+            <h3>Dừng thao tác</h3>
+            <p>Không bấm link, không đọc OTP và chưa chuyển thêm tiền.</p>
+          </article>
+          <article>
+            <b>02</b>
+            <h3>Tự xác minh</h3>
+            <p>Gọi số đã lưu hoặc tự tìm website, ứng dụng chính thức.</p>
+          </article>
+          <article>
+            <b>03</b>
+            <h3>Giữ bằng chứng</h3>
+            <p>Chụp màn hình, lưu số liên hệ và lịch sử giao dịch trước khi xóa.</p>
+          </article>
+        </div>
+        <a class="now-link" href="#official">Mở các kênh hỗ trợ chính thức →</a>
+      </section>
 
     <section id="ai" class="program" aria-labelledby="ai-title">
       <div class="heading">
@@ -160,6 +187,7 @@
       <div class="result-tools">
         <button id="readResult" type="button">🔊 Nghe gợi ý</button>
         <button id="copyResult" type="button">⧉ Chia sẻ gợi ý với người thân</button>
+        <button id="saveResult" type="button">↓ Tải checklist bằng chứng</button>
       </div>
 
       <div class="bottom-result">
@@ -437,6 +465,10 @@
   </footer>
 
   <div id="toast"></div>
+  <div class="quick-actions" aria-label="Thao tác nhanh">
+    <button id="quickPanic" type="button">⏸ Dừng khẩn</button>
+    <a href="#kham">Kiểm tra tình huống</a>
+  </div>
 
   <dialog id="panic">
     <div>

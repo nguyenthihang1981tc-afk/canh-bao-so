@@ -255,6 +255,7 @@ nav a:focus-visible::after {
 
 .program,
 .clinic,
+.now,
 .signs,
 .news,
 .tools,
@@ -532,6 +533,113 @@ nav a:focus-visible::after {
   font: 700 11px inherit;
   cursor: pointer;
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.now {
+  padding: 58px max(9vw, 30px);
+  background: #fff;
+  border-top: 1px solid rgba(116, 160, 202, 0.16);
+  border-bottom: 1px solid rgba(116, 160, 202, 0.16);
+}
+
+.now-intro {
+  max-width: 710px;
+}
+
+.now-intro h2 {
+  margin: 0;
+  font-size: clamp(28px, 3vw, 40px);
+  letter-spacing: -1.4px;
+  line-height: 1.15;
+}
+
+.now-intro > p:last-child {
+  max-width: 650px;
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.now-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.now-steps article {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fbfdff, #f2f8ff);
+}
+
+.now-steps b {
+  color: var(--red);
+  font-size: 13px;
+}
+
+.now-steps h3 {
+  margin: 12px 0 6px;
+  font-size: 15px;
+}
+
+.now-steps p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.now-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.now-link:hover,
+.now-link:focus-visible {
+  text-decoration: underline;
+}
+
+.quick-actions {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px;
+  border: 1px solid rgba(116, 160, 202, 0.35);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 32px rgba(18, 52, 94, 0.18);
+  backdrop-filter: blur(12px);
+}
+
+.quick-actions button,
+.quick-actions a {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 13px;
+  color: var(--ink);
+  background: transparent;
+  font: 700 11px inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.quick-actions button {
+  color: #fff;
+  background: #d94b57;
+}
+
+.quick-actions a:hover,
+.quick-actions a:focus-visible {
+  background: #edf6ff;
 }
 
 .result-tools button:hover,
@@ -1097,4 +1205,14 @@ dialog button {
   .steps { font-size: 9px; }
   .result-tools { display: grid; }
   .font { font-size: 10px; }
+  .now-steps { grid-template-columns: 1fr; }
+  .now-steps article { padding: 17px; }
+  .quick-actions {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    justify-content: space-between;
+  }
+  .quick-actions button,
+  .quick-actions a { flex: 1; text-align: center; }
 }

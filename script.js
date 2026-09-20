@@ -191,6 +191,35 @@ function notice(text) {
 $('#readResult').addEventListener('click', speak);
 $('#copyResult').addEventListener('click', copy);
 
+$('#saveResult').addEventListener('click', () => {
+  const evidence = [
+    'CHECKLIST BẰNG CHỨNG - CẢNH BÁO SỐ',
+    '',
+    `Đánh giá sơ bộ: ${$('#riskTitle').textContent}`,
+    `Mức cảnh giác: ${$('#riskScore').textContent}`,
+    '',
+    'Dấu hiệu đáng chú ý:',
+    ...[...$('#signals').querySelectorAll('li')].map((item, index) => `${index + 1}. ${item.textContent}`),
+    '',
+    'Việc nên làm:',
+    ...[...$('#actions').querySelectorAll('li')].map((item, index) => `${index + 1}. ${item.textContent}`),
+    '',
+    'Bằng chứng cần lưu:',
+    '- Ảnh chụp màn hình tin nhắn, trang web hoặc cuộc gọi.',
+    '- Số điện thoại, tên tài khoản, đường link và thời gian liên hệ.',
+    '- Biên lai hoặc lịch sử giao dịch nếu đã chuyển tiền.',
+    '',
+    'Lưu ý: Không gửi OTP, mật khẩu hoặc thông tin nhạy cảm vào tệp này.'
+  ].join('\n');
+  const blob = new Blob([evidence], { type: 'text/plain;charset=utf-8' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'checklist-canh-bao-so.txt';
+  link.click();
+  URL.revokeObjectURL(link.href);
+  notice('Checklist đã được tải xuống. Hãy lưu cùng các ảnh chụp bằng chứng.');
+});
+
 const phrases = ['Cây bàng trước ngõ', 'Bữa cơm chủ nhật', 'Chiếc áo màu xanh', 'Mật mã con mèo', 'Chuyến đi Đà Lạt'];
 const saved = localStorage.getItem('family-code');
 if (saved) $('#familyCode').textContent = 'Câu xác minh: ' + saved;
@@ -210,5 +239,7 @@ $('#pledgeButton').addEventListener('click', () => {
   notice('Rất tốt. Bạn có thể nhắc lại ba quy tắc này để cả gia đình cùng ghi nhớ.');
 });
 
-$('#panicButton').addEventListener('click', () => $('#panic').showModal());
+const openPanic = () => $('#panic').showModal();
+$('#panicButton').addEventListener('click', openPanic);
+$('#quickPanic').addEventListener('click', openPanic);
 $('#panicClose').addEventListener('click', () => $('#panic').close());
