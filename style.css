@@ -445,6 +445,45 @@ nav a:focus-visible::after {
   font-weight: 800;
 }
 
+.story-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.voice-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border: 1px solid rgba(26, 115, 216, 0.3);
+  border-radius: 999px;
+  background: #edf6ff;
+  color: #1766b1;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.voice-input span {
+  font-size: 9px;
+}
+
+.voice-input:hover,
+.voice-input:focus-visible {
+  border-color: var(--blue);
+  background: #e1f1ff;
+  transform: translateY(-1px);
+}
+
+.voice-input.is-listening {
+  border-color: #d9535b;
+  background: #fff0f1;
+  color: #b23c43;
+}
+
 .exam textarea {
   display: block;
   width: 100%;
@@ -513,6 +552,12 @@ nav a:focus-visible::after {
   margin-bottom: 8px;
   font-size: 13px;
   font-weight: 800;
+}
+
+.story-label-row {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .link-input-row {

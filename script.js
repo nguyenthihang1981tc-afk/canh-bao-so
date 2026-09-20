@@ -144,6 +144,58 @@ function diagnose() {
 
 $('#diagnose').addEventListener('click', diagnose);
 
+const voiceInputButton = $('#voiceInputButton');
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'vi-VN';
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.onstart = () => {
+    voiceInputButton.classList.add('is-listening');
+    voiceInputButton.setAttribute('aria-pressed', 'true');
+    voiceInputButton.innerHTML = '<span aria-hidden="true">●</span> Đang nghe…';
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript.trim();
+    if (!transcript) return;
+    story.value = story.value.trim()
+      ? `${story.value.trim()} ${transcript}`
+      : transcript;
+    story.dispatchEvent(new Event('input', { bubbles: true }));
+  };
+
+  recognition.onerror = (event) => {
+    const messages = {
+      'not-allowed': 'Bạn chưa cấp quyền micro. Hãy cho phép micro rồi thử lại.',
+      'audio-capture': 'Chưa tìm thấy micro. Hãy kiểm tra thiết bị rồi thử lại.',
+      'no-speech': 'Mình chưa nghe rõ. Bạn hãy nói lại chậm hơn.'
+    };
+    if (event.error !== 'aborted') notice(messages[event.error] || 'Không thể nhận diện giọng nói lúc này.');
+  };
+
+  recognition.onend = () => {
+    voiceInputButton.classList.remove('is-listening');
+    voiceInputButton.setAttribute('aria-pressed', 'false');
+    voiceInputButton.innerHTML = '<span aria-hidden="true">●</span> Nói để nhập';
+  };
+
+  voiceInputButton.addEventListener('click', () => {
+    if (voiceInputButton.getAttribute('aria-pressed') === 'true') {
+      recognition.stop();
+      return;
+    }
+    recognition.start();
+  });
+} else {
+  voiceInputButton.addEventListener('click', () => {
+    notice('Trình duyệt này chưa hỗ trợ nhập bằng giọng nói. Bạn có thể dùng Chrome hoặc Edge phiên bản mới.');
+  });
+}
+
 const linkForm = $('#linkForm');
 const linkInput = $('#linkInput');
 const linkResult = $('#linkResult');
