@@ -418,6 +418,31 @@ nav a:focus-visible::after {
   color: #fff;
 }
 
+.trust-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(99, 212, 174, 0.1);
+  border: 1px solid rgba(99, 212, 174, 0.28);
+  color: #dffaf1;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.trust-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #63d4ae;
+  color: #093a2e;
+  font-weight: 800;
+}
+
 .hero aside small {
   display: block;
   margin-top: 10px;
