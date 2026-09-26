@@ -373,6 +373,51 @@ nav a:focus-visible::after {
   font-size: 18px;
 }
 
+.mini-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+  margin-bottom: 16px;
+}
+
+.mini-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(150, 201, 255, 0.18);
+}
+
+.mini-card .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.mini-card .dot.green { background: #63d4ae; box-shadow: 0 0 12px rgba(99, 212, 174, 0.72); }
+.mini-card .dot.amber { background: #f2c66d; box-shadow: 0 0 12px rgba(242, 198, 109, 0.72); }
+
+.mini-card small {
+  display: block;
+  margin: 0;
+  color: #b2cdea;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mini-card strong {
+  display: block;
+  margin-top: 1px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #fff;
+}
+
 .hero aside small {
   display: block;
   margin-top: 10px;
@@ -1339,6 +1384,7 @@ nav a:focus-visible::after {
   .hero > div > p { font-size: 15px; }
   .hero-badges { gap: 8px; }
   .hero-badges span { font-size: 10px; }
+  .mini-cards { grid-template-columns: 1fr; }
   .program,
   .clinic,
   .signs,
