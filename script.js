@@ -19,70 +19,70 @@ siteNav.querySelectorAll('a').forEach((link) => {
 const profiles = [
   {
     keys: ['otp', 'ngân hàng', 'link', 'tài khoản', 'đăng nhập'],
-    title: 'Nguy cơ cao: giả danh ngân hàng',
-    summary: 'Tình huống có dấu hiệu giả mạo ngân hàng để lấy thông tin đăng nhập hoặc mã OTP.',
+    title: 'Cần cảnh giác: có thể là giả danh ngân hàng',
+    summary: 'Tình huống này có những dấu hiệu thường thấy ở việc mạo danh ngân hàng để lấy thông tin đăng nhập hoặc mã OTP.',
     signals: [
-      'Yêu cầu bấm vào đường link không rõ nguồn gốc.',
-      'Đòi OTP/mật khẩu — thông tin ngân hàng không bao giờ được yêu cầu qua cuộc gọi hay tin nhắn.',
-      'Dùng lý do “tài khoản lỗi” để tạo áp lực.'
+      'Bạn được hướng dẫn bấm vào một đường link chưa rõ nguồn gốc.',
+      'Người lạ hỏi OTP hoặc mật khẩu — ngân hàng không yêu cầu những thông tin này qua cuộc gọi hay tin nhắn.',
+      'Lý do “tài khoản gặp lỗi” được dùng để khiến bạn vội vàng.'
     ],
     actions: [
-      'Không bấm link, không cung cấp OTP hoặc mật khẩu.',
-      'Tự tìm số tổng đài chính thức trên website/app ngân hàng và gọi xác minh.',
-      'Nếu đã nhập thông tin, gọi ngân hàng ngay để khoá tài khoản.'
+      'Bạn hãy tạm dừng, không bấm link và không chia sẻ OTP hoặc mật khẩu.',
+      'Tự tìm số tổng đài trên website hoặc ứng dụng chính thức của ngân hàng để xác minh.',
+      'Nếu đã lỡ nhập thông tin, hãy liên hệ ngân hàng ngay để được hỗ trợ bảo vệ tài khoản.'
     ],
-    risk: 92,
+    risk: 'high',
     badge: 'MỨC ĐỘ: CAO'
   },
   {
     keys: ['công an', 'cơ quan', 'vụ án', 'xác minh', 'chuyển tiền'],
-    title: 'Nguy cơ cao: giả danh cơ quan',
-    summary: 'Đây là thủ đoạn gây sợ hãi để nạn nhân chuyển tiền “xác minh”.',
+    title: 'Cần cảnh giác: có thể là giả danh cơ quan',
+    summary: 'Cách liên hệ này có dấu hiệu tạo sợ hãi để thúc giục bạn chuyển tiền với lý do “xác minh”.',
     signals: [
-      'Tạo áp lực bằng câu chuyện liên quan đến pháp luật.',
-      'Yêu cầu chuyển tiền hoặc cài phần mềm lạ.',
-      'Làm việc qua điện thoại thay vì giấy mời/kênh chính thức.'
+      'Câu chuyện liên quan đến pháp luật được dùng để tạo áp lực.',
+      'Bạn được yêu cầu chuyển tiền hoặc cài một phần mềm không rõ nguồn gốc.',
+      'Người gọi làm việc qua điện thoại thay vì hướng dẫn bạn đến kênh chính thức.'
     ],
     actions: [
-      'Dừng cuộc gọi và không chuyển tiền.',
-      'Không cài bất kỳ ứng dụng nào từ người gọi.',
-      'Tự liên hệ cơ quan công an địa phương qua số chính thức nếu cần xác minh.'
+      'Bạn hãy bình tĩnh kết thúc cuộc gọi và chưa chuyển tiền.',
+      'Không cài ứng dụng theo hướng dẫn của người gọi.',
+      'Nếu cần, hãy tự liên hệ Công an địa phương qua số được công bố chính thức.'
     ],
-    risk: 95,
+    risk: 'very-high',
     badge: 'MỨC ĐỘ: RẤT CAO'
   },
   {
     keys: ['việc', 'nhiệm vụ', 'hoa hồng', 'nạp tiền', 'cộng tác'],
-    title: 'Nguy cơ cao: lừa đảo việc làm',
-    summary: '“Làm nhiệm vụ” và nạp tiền để nhận hoa hồng là dấu hiệu rất thường gặp của lừa đảo.',
+    title: 'Cần cảnh giác: lời mời việc làm có dấu hiệu bất thường',
+    summary: 'Việc yêu cầu “làm nhiệm vụ” và nạp tiền trước để nhận hoa hồng là dấu hiệu thường gặp của lừa đảo.',
     signals: [
-      'Hứa thu nhập cao, việc đơn giản.',
-      'Bắt nạp tiền/đặt cọc để bắt đầu hoặc rút tiền.',
-      'Kẻ lừa đảo dùng thành tích giả để tạo lòng tin.'
+      'Công việc được giới thiệu là đơn giản nhưng thu nhập lại quá hấp dẫn.',
+      'Bạn bị yêu cầu nạp tiền hoặc đặt cọc để bắt đầu hay rút tiền.',
+      'Những kết quả hoặc lời chứng thực được đưa ra có thể chỉ nhằm tạo lòng tin.'
     ],
     actions: [
-      'Không nạp tiền, kể cả khi họ cho rút một khoản nhỏ ban đầu.',
-      'Không cung cấp CCCD, tài khoản ngân hàng hoặc ảnh khuôn mặt.',
-      'Lưu lại nội dung để cảnh báo người thân.'
+      'Bạn đừng nạp tiền, kể cả khi ban đầu họ cho rút một khoản nhỏ.',
+      'Không gửi CCCD, thông tin ngân hàng hoặc ảnh khuôn mặt cho người chưa xác minh.',
+      'Lưu lại nội dung trao đổi và chia sẻ cảnh báo với người thân nếu cần.'
     ],
-    risk: 88,
+    risk: 'high',
     badge: 'MỨC ĐỘ: CAO'
   },
   {
     keys: ['người thân', 'mẹ', 'con', 'gấp', 'giọng'],
-    title: 'Nguy cơ cao: giả người thân',
-    summary: 'Giọng nói, hình ảnh và tài khoản mạng xã hội đều có thể bị giả để nhờ chuyển tiền.',
+    title: 'Cần cảnh giác: có thể là mạo danh người thân',
+    summary: 'Giọng nói, hình ảnh và tài khoản mạng xã hội đều có thể bị làm giả để tạo lòng tin và nhờ chuyển tiền.',
     signals: [
-      'Yêu cầu chuyển tiền khẩn cấp.',
-      'Liên hệ bằng số/tài khoản lạ.',
-      'Không thể xác minh bằng một cuộc gọi video độc lập.'
+      'Bạn được nhờ chuyển tiền trong thời gian rất gấp.',
+      'Người liên hệ dùng số điện thoại hoặc tài khoản khác thường.',
+      'Danh tính chưa được xác minh bằng một cuộc gọi độc lập.'
     ],
     actions: [
-      'Gọi lại số cũ hoặc gọi video trực tiếp cho người thân.',
-      'Dùng câu hỏi bí mật chỉ gia đình biết.',
-      'Không chuyển tiền trước khi xác minh qua kênh khác.'
+      'Gọi lại số điện thoại cũ hoặc gọi video trực tiếp cho người thân.',
+      'Dùng một câu hỏi riêng mà chỉ gia đình bạn biết.',
+      'Chỉ thực hiện giao dịch sau khi đã xác minh qua một kênh khác.'
     ],
-    risk: 90,
+    risk: 'high',
     badge: 'MỨC ĐỘ: CAO'
   }
 ];
@@ -91,19 +91,19 @@ function evaluate(text) {
   const lower = text.toLowerCase();
 
   return profiles.find((profile) => profile.keys.some((key) => lower.includes(key))) || {
-    title: 'Cần thận trọng và kiểm tra thêm',
-    summary: 'Chưa đủ dấu hiệu để kết luận, nhưng tình huống lạ cần được xác minh độc lập trước khi bạn làm bất kỳ việc gì.',
+    title: 'Mình khuyên bạn nên kiểm tra thêm',
+    summary: 'Chưa đủ thông tin để kết luận, nhưng đây vẫn là một tình huống nên được xác minh độc lập trước khi bạn làm bất kỳ điều gì.',
     signals: [
-      'Người lạ đang chủ động liên hệ.',
-      'Có yêu cầu khiến bạn cần quyết định ngay.',
-      'Bạn chưa thể kiểm tra danh tính qua kênh chính thức.'
+      'Một người hoặc đơn vị chưa được xác minh đang chủ động liên hệ.',
+      'Bạn được đề nghị đưa ra quyết định ngay lập tức.',
+      'Danh tính và thông tin chưa được đối chiếu qua kênh chính thức.'
     ],
     actions: [
-      'Tạm dừng: không bấm link, cài app hoặc chuyển tiền.',
-      'Tự gọi số chính thức của đơn vị/người liên quan để xác minh.',
-      'Hỏi một người thân tin cậy trước khi ra quyết định.'
+      'Bạn hãy tạm dừng, chưa bấm link, cài ứng dụng hay chuyển tiền.',
+      'Tự tìm và gọi số chính thức của đơn vị hoặc người liên quan để xác minh.',
+      'Chia sẻ tình huống với một người thân đáng tin trước khi quyết định.'
     ],
-    risk: 64,
+    risk: 'medium',
     badge: 'MỨC ĐỘ: VỪA PHẢI'
   };
 }
@@ -112,10 +112,16 @@ function updateRiskMeter(risk, badge) {
   const fill = $('#riskFill');
   const score = $('#riskScore');
   const riskBadge = $('#riskBadge');
+  const levels = {
+    medium: { width: '55%', color: '#f5a623', label: 'Vừa phải' },
+    high: { width: '78%', color: '#df5356', label: 'Cao' },
+    'very-high': { width: '94%', color: '#b4232c', label: 'Rất cao' }
+  };
+  const level = levels[risk];
 
-  fill.style.width = `${risk}%`;
-  fill.style.background = risk >= 85 ? '#df5356' : risk >= 65 ? '#f5a623' : '#4a9d4a';
-  score.textContent = `${risk}/100`;
+  fill.style.width = level.width;
+  fill.style.background = level.color;
+  score.textContent = level.label;
   riskBadge.textContent = badge;
 }
 
@@ -124,7 +130,7 @@ function diagnose() {
   if (!text) {
     story.focus();
     story.setAttribute('aria-invalid', 'true');
-    notice('Hãy kể lại tình huống trước khi kiểm tra.');
+    notice('Bạn hãy kể lại tình huống, mình sẽ cùng bạn xem xét.');
     return;
   }
   story.removeAttribute('aria-invalid');
@@ -144,6 +150,166 @@ function diagnose() {
 
 $('#diagnose').addEventListener('click', diagnose);
 
+const voiceInputButton = $('#voiceInputButton');
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const micIcon = '<span class="mic-icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><path d="M12 14.5a3.5 3.5 0 0 0 3.5-3.5V6a3.5 3.5 0 1 0-7 0v5a3.5 3.5 0 0 0 3.5 3.5Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8.5 21h7"/></svg></span>';
+
+if (!voiceInputButton) {
+  console.warn('Không tìm thấy nút nhập bằng giọng nói.');
+} else if (SpeechRecognition) {
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'vi-VN';
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  let confirmedText = '';
+
+  recognition.onstart = () => {
+    confirmedText = story.value.trim();
+    voiceInputButton.classList.add('is-listening');
+    voiceInputButton.setAttribute('aria-pressed', 'true');
+    voiceInputButton.innerHTML = micIcon;
+    voiceInputButton.setAttribute('aria-label', 'Đang nghe, bấm để dừng');
+    voiceInputButton.setAttribute('title', 'Đang nghe, bấm để dừng');
+  };
+
+  recognition.onresult = (event) => {
+    let interimText = '';
+    let finalText = '';
+
+    for (let index = event.resultIndex; index < event.results.length; index += 1) {
+      const transcript = event.results[index][0].transcript.trim();
+      if (event.results[index].isFinal) {
+        finalText += `${transcript} `;
+      } else {
+        interimText += `${transcript} `;
+      }
+    }
+
+    if (finalText.trim()) {
+      confirmedText = `${confirmedText} ${finalText.trim()}`.trim();
+    }
+
+    story.value = `${confirmedText}${interimText ? ` ${interimText.trim()}` : ''}`.trim();
+    story.dispatchEvent(new Event('input', { bubbles: true }));
+  };
+
+  recognition.onerror = (event) => {
+    const messages = {
+      'not-allowed': 'Bạn chưa cấp quyền micro. Hãy cho phép micro rồi thử lại.',
+      'audio-capture': 'Chưa tìm thấy micro. Hãy kiểm tra thiết bị rồi thử lại.',
+      'no-speech': 'Mình chưa nghe rõ. Bạn hãy nói lại chậm hơn.'
+    };
+    if (event.error !== 'aborted') notice(messages[event.error] || 'Không thể nhận diện giọng nói lúc này.');
+  };
+
+  recognition.onend = () => {
+    story.value = confirmedText.trim();
+    voiceInputButton.classList.remove('is-listening');
+    voiceInputButton.setAttribute('aria-pressed', 'false');
+    voiceInputButton.innerHTML = micIcon;
+    voiceInputButton.setAttribute('aria-label', 'Nói để nhập bằng giọng nói');
+    voiceInputButton.setAttribute('title', 'Nói để nhập bằng giọng nói');
+  };
+
+  voiceInputButton.addEventListener('click', () => {
+    if (voiceInputButton.getAttribute('aria-pressed') === 'true') {
+      recognition.stop();
+      return;
+    }
+    recognition.start();
+  });
+} else {
+  voiceInputButton.addEventListener('click', () => {
+    notice('Trình duyệt này chưa hỗ trợ nhập bằng giọng nói. Bạn có thể dùng Chrome hoặc Edge phiên bản mới.');
+  });
+}
+
+const linkForm = $('#linkForm');
+const linkInput = $('#linkInput');
+const linkResult = $('#linkResult');
+
+const recognizedDomains = {
+  'youtube.com': 'YouTube',
+  'youtu.be': 'YouTube',
+  'google.com': 'Google',
+  'facebook.com': 'Facebook',
+  'messenger.com': 'Messenger',
+  'zalo.me': 'Zalo'
+};
+
+function getRecognizedService(hostname) {
+  return Object.entries(recognizedDomains).find(([domain]) => (
+    hostname === domain.trim() || hostname.endsWith(`.${domain.trim()}`)
+  ))?.[1] || '';
+}
+
+function renderLinkResult(type, title, content) {
+  linkResult.hidden = false;
+  linkResult.className = `link-result ${type}`;
+  linkResult.innerHTML = `<strong>${title}</strong>${content}`;
+  linkResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+linkForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const raw = linkInput.value.trim();
+  if (!raw) {
+    linkInput.focus();
+    notice('Bạn hãy dán một đường link để kiểm tra.');
+    return;
+  }
+
+  const normalized = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+  let url;
+  try {
+    url = new URL(normalized);
+  } catch {
+    renderLinkResult('link-danger', 'Link chưa đúng định dạng.', '<p>Hãy nhập tên miền, ví dụ: example.com hoặc https://example.com.</p>');
+    return;
+  }
+
+  const hostname = url.hostname.toLowerCase();
+  if (!hostname || !hostname.includes('.') || hostname.startsWith('.') || hostname.endsWith('.')) {
+    renderLinkResult('link-danger', 'Chưa nhận diện được tên miền.', '<p>Hãy kiểm tra lại đường link trước khi tiếp tục.</p>');
+    return;
+  }
+
+  const signals = [];
+  const service = getRecognizedService(hostname);
+  const isIpAddress = /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname);
+  const isShortened = /(^|\.)((bit\.ly)|(tinyurl\.com)|(t\.co)|(goo\.gl)|(shorturl\.at))$/i.test(hostname);
+
+  if (url.protocol !== 'https:') signals.push('Đường link không dùng HTTPS.');
+  if (url.username || url.password) signals.push('Link chứa thông tin đăng nhập ngay trước tên miền.');
+  if (hostname.includes('xn--')) signals.push('Tên miền dùng mã hoá ký tự, có thể gây nhầm với tên miền quen thuộc.');
+  if (hostname.split('.').length > 3 && !service) signals.push('Tên miền có nhiều lớp, cần kiểm tra kỹ phần tên miền chính.');
+  if (isIpAddress) signals.push('Link dùng địa chỉ IP thay vì tên miền của một tổ chức.');
+  if (isShortened) signals.push('Đây là link rút gọn nên chưa nhìn được đích đến thật.');
+
+  const safeHostname = hostname.replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[character]);
+  const technicalSummary = `<p class="link-meta">Tên miền: <b>${safeHostname}</b>${url.port ? ` · Cổng: ${url.port}` : ''}</p>`;
+  if (signals.length > 0) {
+    renderLinkResult('link-danger', 'Nên dừng lại và kiểm tra thêm.', `${technicalSummary}<ul>${signals.map((signal) => `<li>${signal}</li>`).join('')}</ul><p>Không nhập OTP, mật khẩu hoặc thông tin thẻ. Nếu được, hãy tự mở ứng dụng hoặc website chính thức thay vì dùng link trong tin nhắn.</p>`);
+    return;
+  }
+
+  if (service) {
+    const serviceNote = service === 'YouTube'
+      ? 'Đường link có dạng của YouTube; phần tham số dài sau dấu “?” thường dùng để mở video hoặc danh sách phát.'
+      : `Đường link có dạng tên miền của ${service}.`;
+    renderLinkResult('link-recognized', `Đã nhận diện tên miền ${service}.`, `${technicalSummary}<p>${serviceNote}</p><p>Tên miền đúng không có nghĩa là video, bài đăng, tài khoản hoặc lời mời bên trong chắc chắn an toàn. Vẫn không đăng nhập, chuyển tiền hay cung cấp mã xác minh theo yêu cầu bất ngờ.</p>`);
+    return;
+  }
+
+  renderLinkResult('link-safe', 'Chưa thấy dấu hiệu kỹ thuật rõ ràng.', `${technicalSummary}<p>Đây chỉ là kết quả kiểm tra hình thức, không phải xác nhận an toàn. Hãy đối chiếu tên miền với website chính thức trước khi đăng nhập hoặc thanh toán.</p>`);
+});
+
 const storyButtons = document.querySelectorAll('[data-story]');
 storyButtons.forEach((button) => {
   button.addEventListener('click', () => {
@@ -159,26 +325,41 @@ $('#fontButton').addEventListener('click', (event) => {
 
 const toast = $('#toast');
 
+const getVietnameseVoice = () => {
+  const voices = window.speechSynthesis.getVoices();
+  return voices.find((voice) => voice.lang.toLowerCase() === 'vi-vn')
+    || voices.find((voice) => voice.lang.toLowerCase().startsWith('vi-'))
+    || voices.find((voice) => voice.lang.toLowerCase() === 'vi');
+};
+
 const speak = () => {
   const text = `${$('#riskTitle').textContent}. ${$('#summary').textContent}. ${[...$('#actions').querySelectorAll('li')].map((item) => item.textContent).join('. ')}`;
   if (!('speechSynthesis' in window)) {
-    notice('Trình duyệt này chưa hỗ trợ đọc kết quả.');
+    notice('Trình duyệt chưa hỗ trợ đọc tiếng Việt.');
     return;
   }
   window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+  const vietnameseVoice = getVietnameseVoice();
+  if (!vietnameseVoice) {
+    notice('Thiết bị chưa có giọng đọc tiếng Việt. Hãy cài thêm giọng Vietnamese/vi-VN trong cài đặt đọc văn bản của máy.');
+    return;
+  }
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'vi-VN';
+  utterance.voice = vietnameseVoice;
+  window.speechSynthesis.speak(utterance);
 };
 
 const copy = async () => {
-  const text = `CẢNH BÁO TỪ PHÒNG KHÁM SỐ\n${$('#riskTitle').textContent}\n${$('#summary').textContent}\nViệc cần làm: ${[...$('#actions').querySelectorAll('li')].map((item) => item.textContent).join('; ')}`;
+  const text = `GỢI Ý AN TOÀN TỪ CẢNH BÁO SỐ\n${$('#riskTitle').textContent}\n${$('#summary').textContent}\nBạn có thể làm: ${[...$('#actions').querySelectorAll('li')].map((item) => item.textContent).join('; ')}`;
 
   try {
     if (!navigator.clipboard?.writeText) throw new Error('Clipboard API unavailable');
     await navigator.clipboard.writeText(text);
-    notice('Đã sao chép hướng dẫn — bạn có thể gửi cho người thân.');
+    notice('Mình đã sao chép gợi ý. Bạn có thể gửi cho người thân để cùng xem xét.');
   } catch (error) {
     console.warn('Không thể sao chép hướng dẫn:', error);
-    notice('Hãy chọn và sao chép nội dung kết quả để gửi người thân.');
+    notice('Bạn có thể chọn và sao chép phần kết quả để gửi cho người thân.');
   }
 };
 
@@ -191,15 +372,44 @@ function notice(text) {
 $('#readResult').addEventListener('click', speak);
 $('#copyResult').addEventListener('click', copy);
 
+$('#saveResult').addEventListener('click', () => {
+  const evidence = [
+    'CHECKLIST BẰNG CHỨNG - CẢNH BÁO SỐ',
+    '',
+    `Đánh giá sơ bộ: ${$('#riskTitle').textContent}`,
+    `Mức cảnh giác: ${$('#riskScore').textContent}`,
+    '',
+    'Dấu hiệu đáng chú ý:',
+    ...[...$('#signals').querySelectorAll('li')].map((item, index) => `${index + 1}. ${item.textContent}`),
+    '',
+    'Việc nên làm:',
+    ...[...$('#actions').querySelectorAll('li')].map((item, index) => `${index + 1}. ${item.textContent}`),
+    '',
+    'Bằng chứng cần lưu:',
+    '- Ảnh chụp màn hình tin nhắn, trang web hoặc cuộc gọi.',
+    '- Số điện thoại, tên tài khoản, đường link và thời gian liên hệ.',
+    '- Biên lai hoặc lịch sử giao dịch nếu đã chuyển tiền.',
+    '',
+    'Lưu ý: Không gửi OTP, mật khẩu hoặc thông tin nhạy cảm vào tệp này.'
+  ].join('\n');
+  const blob = new Blob([evidence], { type: 'text/plain;charset=utf-8' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'checklist-canh-bao-so.txt';
+  link.click();
+  URL.revokeObjectURL(link.href);
+  notice('Checklist đã được tải xuống. Hãy lưu cùng các ảnh chụp bằng chứng.');
+});
+
 const phrases = ['Cây bàng trước ngõ', 'Bữa cơm chủ nhật', 'Chiếc áo màu xanh', 'Mật mã con mèo', 'Chuyến đi Đà Lạt'];
 const saved = localStorage.getItem('family-code');
-if (saved) $('#familyCode').textContent = 'Câu xác minh: ' + saved;
+if (saved) $('#familyCode').textContent = 'Gợi ý mẫu (không phải mật khẩu): ' + saved;
 
 $('#createCode').addEventListener('click', () => {
   const code = phrases[Math.floor(Math.random() * phrases.length)];
   localStorage.setItem('family-code', code);
-  $('#familyCode').textContent = 'Câu xác minh: ' + code;
-  notice('Đã tạo câu xác minh. Hãy ghi nhớ và chỉ chia sẻ với gia đình.');
+  $('#familyCode').textContent = 'Gợi ý mẫu (không phải mật khẩu): ' + code;
+  notice('Đây chỉ là một cụm từ mẫu công khai. Hãy tự thống nhất câu riêng với gia đình.');
 });
 
 if (localStorage.getItem('safety-pledge')) $('#pledgeState').textContent = '✓ Đã hoàn thành';
@@ -207,8 +417,10 @@ if (localStorage.getItem('safety-pledge')) $('#pledgeState').textContent = '✓ 
 $('#pledgeButton').addEventListener('click', () => {
   localStorage.setItem('safety-pledge', 'true');
   $('#pledgeState').textContent = '✓ Đã hoàn thành';
-  notice('Tốt lắm! Hãy nhắc lại ba quy tắc này cho người thân.');
+  notice('Rất tốt. Bạn có thể nhắc lại ba quy tắc này để cả gia đình cùng ghi nhớ.');
 });
 
-$('#panicButton').addEventListener('click', () => $('#panic').showModal());
+const openPanic = () => $('#panic').showModal();
+$('#panicButton').addEventListener('click', openPanic);
+$('#quickPanic').addEventListener('click', openPanic);
 $('#panicClose').addEventListener('click', () => $('#panic').close());
