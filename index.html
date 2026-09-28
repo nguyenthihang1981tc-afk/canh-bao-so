@@ -30,6 +30,7 @@
       <a href="#news">Chiêu lừa</a>
       <a href="#kham">Kiểm tra</a>
       <a href="#link-check">Kiểm tra link</a>
+      <a href="#phone-check">Kiểm tra số</a>
       <a href="#help">Hỗ trợ</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -212,6 +213,23 @@
         <p id="linkHelp" class="field-help">Không cần đăng nhập. Đường link chỉ được phân tích trên thiết bị và không được gửi đi.</p>
       </form>
       <div id="linkResult" class="link-result" hidden aria-live="polite"></div>
+    </section>
+
+    <section id="phone-check" class="phone-check" aria-labelledby="phone-check-title">
+      <div class="heading">
+        <p class="eyebrow">KIỂM TRA SỐ GỌI</p>
+        <h2 id="phone-check-title">Số này có thể là số lừa đảo không?</h2>
+        <p>Nhập số điện thoại, mã vùng hoặc số mà bạn nhận được trong cuộc gọi, tin nhắn hoặc mạng xã hội. Công cụ này chỉ giúp gắn nhãn dựa trên các mẫu thường gặp và không thay thế kiểm tra chính thức từ nhà mạng hoặc cơ quan chức năng.</p>
+      </div>
+      <form id="phoneForm" class="link-form phone-form">
+        <label for="phoneInput">Số điện thoại cần kiểm tra</label>
+        <div class="link-input-row">
+          <input id="phoneInput" type="tel" inputmode="numeric" autocomplete="off" placeholder="Ví dụ: 1900..., 086..., +84..." aria-describedby="phoneHelp">
+          <button type="submit">Kiểm tra số</button>
+        </div>
+        <p id="phoneHelp" class="field-help">Hãy ưu tiên gọi lại qua số đã lưu, không gọi lại số do người lạ chỉ ra nếu có dấu hiệu bất thường.</p>
+      </form>
+      <div id="phoneResult" class="link-result phone-result" hidden aria-live="polite"></div>
     </section>
 
     <section id="result" class="result" hidden>

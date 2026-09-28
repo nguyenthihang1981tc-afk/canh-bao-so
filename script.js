@@ -201,7 +201,8 @@ if (!voiceInputButton) {
       'service-not-allowed': 'Trình duyệt đang chặn dịch vụ nhận giọng nói. Hãy thử bằng Chrome hoặc Edge và cho phép micro.',
       'audio-capture': 'Chưa tìm thấy micro. Hãy kiểm tra thiết bị rồi thử lại.',
       'no-speech': 'Mình chưa nghe rõ. Hãy nói ngay sau khi nút chuyển sang màu đỏ.',
-      'network': 'Không thể kết nối dịch vụ nhận giọng nói. Hãy kiểm tra mạng rồi thử lại.'
+      'network': 'Không thể kết nối dịch vụ nhận giọng nói. Hãy kiểm tra mạng rồi thử lại.',
+      'language-not-supported': 'Trình duyệt chưa hỗ trợ nhận dạng tiếng Việt trên thiết bị này.'
     };
     if (event.error !== 'aborted') notice(messages[event.error] || 'Không thể nhận diện giọng nói lúc này.');
   };
@@ -237,6 +238,10 @@ if (!voiceInputButton) {
   });
 } else {
   voiceInputButton.addEventListener('click', () => {
+    if (window.isSecureContext === false) {
+      notice('Nhập bằng giọng nói cần trang HTTPS hoặc localhost. Hãy mở trang bằng kết nối an toàn rồi thử lại.');
+      return;
+    }
     notice('Trình duyệt này chưa hỗ trợ nhập bằng giọng nói. Bạn có thể dùng Chrome hoặc Edge phiên bản mới.');
   });
 }
@@ -244,6 +249,86 @@ if (!voiceInputButton) {
 const linkForm = $('#linkForm');
 const linkInput = $('#linkInput');
 const linkResult = $('#linkResult');
+const phoneForm = $('#phoneForm');
+const phoneInput = $('#phoneInput');
+const phoneResult = $('#phoneResult');
+
+const knownScamPatterns = [
+  { pattern: /^0?(1900\d{4,6})$/i, label: 'Nên cảnh giác', title: 'Số gọi khẩn cấp không xác định', message: 'Mẫu số 1900 thường được dùng cho dịch vụ hỗ trợ hoặc quảng cáo, nhưng cũng có thể bị lợi dụng để tạo áp lực. Nếu không chắc chắn, hãy dừng và gọi lại qua số đã lưu.' },
+  { pattern: /^0?(1800\d{4,6})$/i, label: 'Nên cảnh giác', title: 'Số hotline lạ', message: 'Số dạng 1800 có thể là hotline chính thức, nhưng cũng được dùng trong các chiêu trò nhắn tin lừa gạt. Hãy kiểm tra với nguồn chính thức trước khi cung cấp thông tin.' },
+  { pattern: /^\+?84(?:3|5|7|8|9)\d{8}$/i, label: 'Cần kiểm tra', title: 'Số di động thường gặp trong các mô hình lừa đảo', message: 'Nhiều cuộc gọi lừa đảo hoạt động bằng số di động mà không rõ danh tính. Nếu yêu cầu chuyển tiền, cung cấp OTP hoặc bấm link, hãy dừng lại.' },
+  { pattern: /^\+?84(?:2|3|5|7|8|9)\d{8,9}$/i, label: 'Cần kiểm tra', title: 'Số điện thoại không xác định', message: 'Số này có thể là số bất thường nếu bạn không có lý do để tin cậy người gọi hoặc người nhắn. Hãy xác minh bằng kênh chính thức trước khi làm theo.' },
+  { pattern: /^0\d{9,10}$/i, label: 'Thường là số đang được sử dụng', title: 'Số Việt Nam dạng phổ thông', message: 'Số dạng này không tự động cho thấy lừa đảo, nhưng cần xác minh nếu người gọi dùng các lời lẽ thúc giục, yêu cầu chuyển tiền hoặc cung cấp mã xác thực.' }
+];
+
+function normalizePhoneNumber(raw) {
+  const digits = raw.replace(/\D+/g, '');
+  if (!digits) return '';
+  if (digits.startsWith('84')) return '+' + digits;
+  if (digits.startsWith('0')) return digits;
+  return '+84' + digits;
+}
+
+function evaluatePhoneNumber(raw) {
+  const stripped = raw.trim();
+  if (!stripped) {
+    return {
+      type: 'phone-danger',
+      title: 'Bạn chưa nhập số cần kiểm tra.',
+      content: '<p>Hãy nhập số điện thoại hoặc mã vùng mà bạn đã nhận được.</p>'
+    };
+  }
+
+  const normalized = normalizePhoneNumber(stripped);
+  const sanitized = normalized.replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[character]);
+
+  if (!/^(\+?\d{10,15}|0\d{9,10})$/.test(normalized.replace(/\s+/g, ''))) {
+    return {
+      type: 'phone-danger',
+      title: 'Số này chưa đúng định dạng.',
+      content: `<p>Hãy nhập dạng Việt Nam như <b>0901234567</b>, <b>+84901234567</b>, <b>1800xxxx</b> hoặc <b>1900xxxx</b>.</p>`
+    };
+  }
+
+  const normalizedNoSpaces = normalized.replace(/\s+/g, '');
+  const variants = [
+    normalizedNoSpaces,
+    normalizedNoSpaces.replace(/^\+84/, '0'),
+    normalizedNoSpaces.replace(/^0/, ''),
+    normalizedNoSpaces.replace(/^\+84/, '')
+  ].filter(Boolean);
+
+  const match = knownScamPatterns.find(({ pattern }) => variants.some((variant) => pattern.test(variant)));
+
+  if (!match) {
+    return {
+      type: 'phone-safe',
+      title: 'Số này chưa hiện rõ dấu hiệu lừa đảo.',
+      content: `<p class="link-meta">Số đang xét: <b>${sanitized}</b></p><p>Điều này không đồng nghĩa với việc số đó an toàn tuyệt đối. Nếu người gọi hoặc người nhắn thúc giục chuyển tiền, cung cấp OTP, bấm link hoặc cài ứng dụng lạ, hãy dừng lại và xác minh qua kênh chính thức.</p>`
+    };
+  }
+
+  return {
+    type: match.label === 'Nên cảnh giác' ? 'phone-warning' : 'phone-danger',
+    title: match.title,
+    content: `<p class="link-meta">Số đang xét: <b>${sanitized}</b></p><p>${match.message}</p><p>Không chia sẻ OTP, mật khẩu, mã xác thực hoặc bấm link bất ngờ. Gọi lại số đã lưu trên ứng dụng hoặc website chính thức để xác minh.</p>`
+  };
+}
+
+phoneForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const result = evaluatePhoneNumber(phoneInput.value);
+  phoneResult.hidden = false;
+  phoneResult.className = `link-result ${result.type}`;
+  phoneResult.innerHTML = `<strong>${result.title}</strong>${result.content}`;
+  phoneResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
 
 const recognizedDomains = {
   'youtube.com': 'YouTube',
@@ -344,27 +429,33 @@ const toast = $('#toast');
 
 const getVietnameseVoice = () => {
   const voices = window.speechSynthesis.getVoices();
-  return voices.find((voice) => voice.lang.toLowerCase() === 'vi-vn')
-    || voices.find((voice) => voice.lang.toLowerCase().startsWith('vi-'))
-    || voices.find((voice) => voice.lang.toLowerCase() === 'vi');
+  return voices.find((voice) => voice.lang?.toLowerCase() === 'vi-vn')
+    || voices.find((voice) => voice.lang?.toLowerCase().startsWith('vi-'))
+    || voices.find((voice) => voice.lang?.toLowerCase() === 'vi');
 };
 
 const speak = () => {
-  const text = `${$('#riskTitle').textContent}. ${$('#summary').textContent}. ${[...$('#actions').querySelectorAll('li')].map((item) => item.textContent).join('. ')}`;
-  if (!('speechSynthesis' in window)) {
+  if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
     notice('Trình duyệt chưa hỗ trợ đọc tiếng Việt.');
     return;
   }
-  window.speechSynthesis.cancel();
+  const text = `${$('#riskTitle').textContent}. ${$('#summary').textContent}. ${[...$('#actions').querySelectorAll('li')].map((item) => item.textContent).join('. ')}`;
+  const synthesis = window.speechSynthesis;
+  synthesis.cancel();
   const vietnameseVoice = getVietnameseVoice();
-  if (!vietnameseVoice) {
-    notice('Thiết bị chưa có giọng đọc tiếng Việt. Hãy cài thêm giọng Vietnamese/vi-VN trong cài đặt đọc văn bản của máy.');
-    return;
-  }
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'vi-VN';
-  utterance.voice = vietnameseVoice;
-  window.speechSynthesis.speak(utterance);
+  if (vietnameseVoice) {
+    utterance.voice = vietnameseVoice;
+  } else {
+    notice('Thiết bị chưa liệt kê giọng đọc tiếng Việt; đang thử giọng mặc định của trình duyệt.');
+  }
+  utterance.onerror = (event) => {
+    if (event.error !== 'canceled' && event.error !== 'interrupted') {
+      notice('Không thể phát giọng đọc. Hãy kiểm tra âm lượng và cài đặt giọng nói của thiết bị.');
+    }
+  };
+  synthesis.speak(utterance);
 };
 
 const copy = async () => {
