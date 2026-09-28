@@ -454,6 +454,7 @@ nav a:focus-visible::after {
 .clinic,
 .now,
 .link-check,
+.phone-check,
 .signs,
 .news,
 .tools,
@@ -710,6 +711,10 @@ nav a:focus-visible::after {
 .privacy { margin: 13px 0 0; color: #8497a8; font-size: 10px; }
 
 .link-check {
+  background: linear-gradient(180deg, #f4f9ff 0%, #edf7ff 100%);
+}
+
+.phone-check {
   background: linear-gradient(180deg, #f4f9ff 0%, #edf7ff 100%);
 }
 
@@ -1576,6 +1581,7 @@ nav a:focus-visible::after {
 .clinic,
 .now,
 .link-check,
+.phone-check,
 .signs,
 .news,
 .tools,
@@ -1832,6 +1838,10 @@ nav a:focus-visible::after {
 .privacy { margin: 13px 0 0; color: #8497a8; font-size: 10px; }
 
 .link-check {
+  background: linear-gradient(180deg, #f4f9ff 0%, #edf7ff 100%);
+}
+
+.phone-check {
   background: linear-gradient(180deg, #f4f9ff 0%, #edf7ff 100%);
 }
 
