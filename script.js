@@ -161,7 +161,9 @@ if (!voiceInputButton) {
   recognition.lang = 'vi-VN';
   recognition.continuous = false;
   recognition.interimResults = true;
+  recognition.maxAlternatives = 1;
   let confirmedText = '';
+  let isRecognitionStarting = false;
 
   recognition.onstart = () => {
     confirmedText = story.value.trim();
@@ -196,13 +198,20 @@ if (!voiceInputButton) {
   recognition.onerror = (event) => {
     const messages = {
       'not-allowed': 'Bạn chưa cấp quyền micro. Hãy cho phép micro rồi thử lại.',
+      'service-not-allowed': 'Trình duyệt đang chặn dịch vụ nhận giọng nói. Hãy thử bằng Chrome hoặc Edge và cho phép micro.',
       'audio-capture': 'Chưa tìm thấy micro. Hãy kiểm tra thiết bị rồi thử lại.',
-      'no-speech': 'Mình chưa nghe rõ. Bạn hãy nói lại chậm hơn.'
+      'no-speech': 'Mình chưa nghe rõ. Hãy nói ngay sau khi nút chuyển sang màu đỏ.',
+      'network': 'Không thể kết nối dịch vụ nhận giọng nói. Hãy kiểm tra mạng rồi thử lại.'
     };
     if (event.error !== 'aborted') notice(messages[event.error] || 'Không thể nhận diện giọng nói lúc này.');
   };
 
+  recognition.onnomatch = () => {
+    notice('Mình chưa nhận ra câu nói. Hãy nói ngắn, rõ và thử lại.');
+  };
+
   recognition.onend = () => {
+    isRecognitionStarting = false;
     story.value = confirmedText.trim();
     voiceInputButton.classList.remove('is-listening');
     voiceInputButton.setAttribute('aria-pressed', 'false');
@@ -216,7 +225,15 @@ if (!voiceInputButton) {
       recognition.stop();
       return;
     }
-    recognition.start();
+    if (isRecognitionStarting) return;
+    isRecognitionStarting = true;
+    try {
+      recognition.start();
+    } catch (error) {
+      isRecognitionStarting = false;
+      console.warn('Không thể bắt đầu nhận giọng nói:', error);
+      notice('Không thể bật micro lúc này. Hãy thử bấm lại sau một giây.');
+    }
   });
 } else {
   voiceInputButton.addEventListener('click', () => {
