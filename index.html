@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260928-phone-check-layout">
+  <link rel="stylesheet" href="style.css?v=20261012-chatbot">
 </head>
 <body>
   <a class="skip-link" href="#top">Bỏ qua đến nội dung chính</a>
@@ -176,10 +176,11 @@
 
         <div class="story-label-row">
           <label for="story">Hãy kể lại câu chuyện của bạn</label>
-          <button id="voiceInputButton" class="voice-input" type="button" aria-label="Nói để nhập bằng giọng nói" title="Nói để nhập bằng giọng nói" aria-pressed="false">
+          <button id="voiceInputButton" class="voice-input" type="button" aria-label="Nhấn để nhập bằng giọng nói" title="Nhấn để nhập bằng giọng nói" aria-pressed="false">
             <span class="mic-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" role="presentation"><path d="M12 14.5a3.5 3.5 0 0 0 3.5-3.5V6a3.5 3.5 0 1 0-7 0v5a3.5 3.5 0 0 0 3.5 3.5Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8.5 21h7"/></svg>
             </span>
+            <span class="voice-button-label">Nhấn để nói</span>
           </button>
         </div>
         <textarea id="story" aria-describedby="storyHelp" maxlength="1200" placeholder="Ví dụ: Có người gọi tự xưng là nhân viên ngân hàng, nói tài khoản của tôi bị lỗi và yêu cầu tôi bấm vào link để nhập mã OTP..."></textarea>
@@ -264,7 +265,7 @@
       </div>
 
       <div class="result-tools">
-        <button id="readResult" type="button">🔊 Nghe tiếng Việt</button>
+        <button id="readResult" type="button" aria-pressed="false">🔊 Nghe hướng dẫn</button>
         <button id="copyResult" type="button">⧉ Chia sẻ gợi ý với người thân</button>
         <button id="saveResult" type="button">↓ Tải checklist bằng chứng</button>
       </div>
@@ -548,6 +549,30 @@
     <a href="#kham">Kiểm tra tình huống</a>
   </div>
 
+  <section class="chatbot" aria-label="Trợ lý hỏi đáp">
+    <button id="chatbotToggle" class="chatbot-toggle" type="button" aria-expanded="false" aria-controls="chatbotPanel">
+      <span aria-hidden="true">💬</span> Hỏi trợ lý
+    </button>
+    <div id="chatbotPanel" class="chatbot-panel" hidden>
+      <div class="chatbot-header">
+        <div>
+          <strong>Trợ lý Cảnh Báo Số</strong>
+          <span>Hỏi nhanh về tin nhắn và cuộc gọi lạ</span>
+        </div>
+        <button id="chatbotClose" class="chatbot-close" type="button" aria-label="Đóng trợ lý">×</button>
+      </div>
+      <div id="chatMessages" class="chat-messages" role="log" aria-live="polite" aria-relevant="additions text">
+        <p class="chat-message chat-message-assistant">Xin chào! Tôi có thể giúp gì cho cô/chú? Hãy nhập câu hỏi. Không gửi OTP, mật khẩu hay thông tin thẻ.</p>
+      </div>
+      <form id="chatForm" class="chat-form">
+        <label class="sr-only" for="chatInput">Nhập câu hỏi cho trợ lý</label>
+        <input id="chatInput" type="text" maxlength="300" autocomplete="off" placeholder="Nhập câu hỏi ngắn...">
+        <button type="submit" aria-label="Gửi câu hỏi">Gửi</button>
+      </form>
+      <p class="chat-disclaimer">Trợ lý trả lời theo hướng dẫn có sẵn, không phải chuyên gia. Nội dung chỉ xử lý trên thiết bị.</p>
+    </div>
+  </section>
+
   <dialog id="panic">
     <div>
       <p class="eyebrow">BẤT CỨ THỜI ĐIỂM NÀO</p>
@@ -557,6 +582,6 @@
     </div>
   </dialog>
 
-  <script src="script.js?v=20260926-review"></script>
+  <script src="script.js?v=20261012-chatbot"></script>
 </body>
 </html>

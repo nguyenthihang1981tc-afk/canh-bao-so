@@ -153,6 +153,7 @@ $('#diagnose').addEventListener('click', diagnose);
 const voiceInputButton = $('#voiceInputButton');
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const micIcon = '<span class="mic-icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation"><path d="M12 14.5a3.5 3.5 0 0 0 3.5-3.5V6a3.5 3.5 0 1 0-7 0v5a3.5 3.5 0 0 0 3.5 3.5Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8.5 21h7"/></svg></span>';
+const getMicButtonContent = (label) => `${micIcon}<span class="voice-button-label">${label}</span>`;
 
 if (!voiceInputButton) {
   console.warn('Không tìm thấy nút nhập bằng giọng nói.');
@@ -169,9 +170,9 @@ if (!voiceInputButton) {
     confirmedText = story.value.trim();
     voiceInputButton.classList.add('is-listening');
     voiceInputButton.setAttribute('aria-pressed', 'true');
-    voiceInputButton.innerHTML = micIcon;
-    voiceInputButton.setAttribute('aria-label', 'Đang nghe, bấm để dừng');
-    voiceInputButton.setAttribute('title', 'Đang nghe, bấm để dừng');
+    voiceInputButton.innerHTML = getMicButtonContent('Đang nghe · Bấm để dừng');
+    voiceInputButton.setAttribute('aria-label', 'Đang nghe. Nhấn để dừng');
+    voiceInputButton.setAttribute('title', 'Đang nghe. Nhấn để dừng');
   };
 
   recognition.onresult = (event) => {
@@ -216,9 +217,9 @@ if (!voiceInputButton) {
     story.value = confirmedText.trim();
     voiceInputButton.classList.remove('is-listening');
     voiceInputButton.setAttribute('aria-pressed', 'false');
-    voiceInputButton.innerHTML = micIcon;
-    voiceInputButton.setAttribute('aria-label', 'Nói để nhập bằng giọng nói');
-    voiceInputButton.setAttribute('title', 'Nói để nhập bằng giọng nói');
+    voiceInputButton.innerHTML = getMicButtonContent('Nhấn để nói');
+    voiceInputButton.setAttribute('aria-label', 'Nhấn để nhập bằng giọng nói');
+    voiceInputButton.setAttribute('title', 'Nhấn để nhập bằng giọng nói');
   };
 
   voiceInputButton.addEventListener('click', () => {
@@ -434,14 +435,22 @@ const getVietnameseVoice = () => {
     || voices.find((voice) => voice.lang?.toLowerCase() === 'vi');
 };
 
+const readResultButton = $('#readResult');
+const readButtonLabel = '🔊 Nghe hướng dẫn';
+
 const speak = () => {
   if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
     notice('Trình duyệt chưa hỗ trợ đọc tiếng Việt.');
     return;
   }
-  const text = `${$('#riskTitle').textContent}. ${$('#summary').textContent}. ${[...$('#actions').querySelectorAll('li')].map((item) => item.textContent).join('. ')}`;
   const synthesis = window.speechSynthesis;
-  synthesis.cancel();
+  if (synthesis.speaking || synthesis.pending) {
+    synthesis.cancel();
+    readResultButton.textContent = readButtonLabel;
+    readResultButton.setAttribute('aria-pressed', 'false');
+    return;
+  }
+  const text = `${$('#riskTitle').textContent}. ${$('#summary').textContent}. ${[...$('#actions').querySelectorAll('li')].map((item) => item.textContent).join('. ')}`;
   const vietnameseVoice = getVietnameseVoice();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'vi-VN';
@@ -450,7 +459,17 @@ const speak = () => {
   } else {
     notice('Thiết bị chưa liệt kê giọng đọc tiếng Việt; đang thử giọng mặc định của trình duyệt.');
   }
+  utterance.onstart = () => {
+    readResultButton.textContent = '⏹ Dừng đọc';
+    readResultButton.setAttribute('aria-pressed', 'true');
+  };
+  utterance.onend = () => {
+    readResultButton.textContent = readButtonLabel;
+    readResultButton.setAttribute('aria-pressed', 'false');
+  };
   utterance.onerror = (event) => {
+    readResultButton.textContent = readButtonLabel;
+    readResultButton.setAttribute('aria-pressed', 'false');
     if (event.error !== 'canceled' && event.error !== 'interrupted') {
       notice('Không thể phát giọng đọc. Hãy kiểm tra âm lượng và cài đặt giọng nói của thiết bị.');
     }
@@ -532,3 +551,84 @@ const openPanic = () => $('#panic').showModal();
 $('#panicButton').addEventListener('click', openPanic);
 $('#quickPanic').addEventListener('click', openPanic);
 $('#panicClose').addEventListener('click', () => $('#panic').close());
+
+const chatbotToggle = $('#chatbotToggle');
+const chatbotPanel = $('#chatbotPanel');
+const chatForm = $('#chatForm');
+const chatInput = $('#chatInput');
+const chatMessages = $('#chatMessages');
+
+const chatAnswers = [
+  {
+    keys: ['otp', 'mat khau', 'ma xac thuc', 'ma bao mat'],
+    answer: 'Cô/chú đừng đọc hoặc gửi mã OTP, mật khẩu hay mã xác thực cho bất kỳ ai. Hãy dừng cuộc gọi/tin nhắn và tự gọi ngân hàng bằng số trên thẻ hoặc ứng dụng chính thức.'
+  },
+  {
+    keys: ['link', 'duong dan', 'bam vao', 'nhan tin'],
+    answer: 'Cô/chú đừng bấm đường link lạ hoặc nhập thông tin vào đó. Hãy tự mở ứng dụng chính thức đã cài sẵn, hoặc nhờ người thân tin cậy kiểm tra địa chỉ website trước khi tiếp tục.'
+  },
+  {
+    keys: ['chuyen tien', 'gui tien', 'nap tien', 'chuyen khoan', 'hoa hong'],
+    answer: 'Cô/chú hãy dừng lại, chưa chuyển hoặc nạp tiền. Tự gọi người liên quan qua số đã lưu để xác minh; không gọi lại số do người lạ vừa cung cấp.'
+  },
+  {
+    keys: ['nguoi than', 'con toi', 'gia mao', 'giong noi', 'video ai'],
+    answer: 'Giọng nói hoặc hình ảnh có thể bị làm giả. Cô/chú hãy gọi lại số điện thoại cũ đã lưu hoặc hỏi một câu riêng của gia đình trước khi chuyển tiền hay chia sẻ thông tin.'
+  },
+  {
+    keys: ['so chinh thuc', 'tong dai', 'website', 'tim so', 'tim website', 'lien he'],
+    answer: 'Cô/chú hãy tự mở ứng dụng chính thức đã cài, xem số ở mặt sau thẻ, hoặc tự gõ địa chỉ website quen thuộc vào trình duyệt. Đừng dùng số điện thoại hay đường link người lạ gửi.'
+  },
+  {
+    keys: ['lo lua dao', 'bi lua', 'da chuyen', 'mat tien'],
+    answer: 'Nếu cô/chú đã chuyển tiền hoặc lỡ cung cấp thông tin, hãy gọi ngay ngân hàng bằng số trên thẻ/ứng dụng chính thức để nhờ hỗ trợ khóa giao dịch, rồi lưu tin nhắn và ảnh chụp làm bằng chứng.'
+  }
+];
+
+function normalizeChatText(text) {
+  return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
+}
+
+function getChatAnswer(question) {
+  const normalizedQuestion = normalizeChatText(question);
+  const match = chatAnswers.find(({ keys }) => keys.some((key) => normalizedQuestion.includes(key)));
+  return match?.answer || 'Cô/chú hãy bình tĩnh, chưa bấm link, cung cấp mã hay chuyển tiền. Có thể mở mục “Kiểm tra tình huống” để xem các bước an toàn, hoặc nhờ người thân tin cậy cùng kiểm tra qua kênh chính thức.';
+}
+
+function addChatMessage(text, sender) {
+  const message = document.createElement('p');
+  message.className = `chat-message chat-message-${sender}`;
+  message.textContent = text;
+  chatMessages.append(message);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function askChatbot(question) {
+  const trimmedQuestion = question.trim();
+  if (!trimmedQuestion) return;
+  addChatMessage(trimmedQuestion, 'user');
+  addChatMessage(getChatAnswer(trimmedQuestion), 'assistant');
+  chatInput.value = '';
+}
+
+chatbotToggle.addEventListener('click', () => {
+  const isOpen = chatbotToggle.getAttribute('aria-expanded') === 'true';
+  chatbotToggle.setAttribute('aria-expanded', String(!isOpen));
+  chatbotPanel.hidden = isOpen;
+  if (isOpen) {
+    chatbotToggle.focus();
+  } else {
+    chatInput.focus();
+  }
+});
+
+$('#chatbotClose').addEventListener('click', () => {
+  chatbotPanel.hidden = true;
+  chatbotToggle.setAttribute('aria-expanded', 'false');
+  chatbotToggle.focus();
+});
+
+chatForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  askChatbot(chatInput.value);
+});
